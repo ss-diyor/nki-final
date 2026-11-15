@@ -65,10 +65,31 @@ input[type=search]{width:100%;padding:12px 14px;outline:none}input[type=search]:
 mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 label.t{display:flex;gap:8px;align-items:center;margin-top:14px;font-size:.92rem}
 .empty{text-align:center;color:var(--mu);padding:30px 0}
+input[type=text]{width:100%;font:inherit;padding:12px 14px;border:2px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx);outline:none;margin-top:6px}
+input[type=text]:focus{border-color:var(--ac)}
+.fl{display:block;margin-top:16px;font-weight:600;font-size:.95rem}
+.who{display:flex;align-items:center;gap:8px;color:var(--mu);font-size:.9rem;margin-bottom:12px}
+.av{width:56px;height:56px;border-radius:50%;background:var(--acs);color:var(--ac);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;flex:none}
+.ph{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.ph>div:nth-child(2){flex:1;min-width:140px}
+.ph h1{margin:0}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.kp div{background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:10px;text-align:center}
+.kp b{display:block;font-size:1.3rem}.kp span{font-size:.8rem;color:var(--mu)}
+.sc{overflow-x:auto;border:1px solid var(--ln);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--ln);white-space:nowrap}
+th{color:var(--mu);font-weight:600;font-size:.8rem;background:var(--bg)}tr:last-child td{border-bottom:0}
+.pill{display:inline-block;border-radius:999px;padding:1px 10px;font-weight:700;font-size:.85rem}
+.pill.ok{background:var(--oks);color:var(--ok)}.pill.no{background:var(--nos);color:var(--no)}.pill.mid{background:var(--acs);color:var(--ac)}
+.prow{display:flex;align-items:center;gap:10px;border:1px solid var(--ln);background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.prow>div:first-child{flex:1;min-width:0}.prow b{display:block;overflow:hidden;text-overflow:ellipsis}
+.sm{padding:7px 12px;font-size:.9rem}
+h2.sec{margin:22px 0 10px}
 [hidden]{display:none!important}
 </style></head><body><div class="w">
 
 <div class="tb">
+<button class="ib" id="bProfile" aria-label="Student profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
 <button class="ib" id="bSearch" aria-label="Search all questions"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
 <button class="ib" id="fMinus" aria-label="Decrease font size"><svg viewBox="0 0 24 24"><path d="M3 18 8 6l5 12M5 14h6"/><path d="M16 12h6"/></svg></button>
 <button class="ib" id="fPlus" aria-label="Increase font size"><svg viewBox="0 0 24 24"><path d="M3 18 8 6l5 12M5 14h6"/><path d="M19 9v6M16 12h6"/></svg></button>
@@ -79,6 +100,7 @@ label.t{display:flex;gap:8px;align-items:center;margin-top:14px;font-size:.92rem
 </div>
 
 <section id="start" class="card">
+<div class="who" id="who"></div>
 <h1>Final Exam</h1>
 <div class="mu">Nutq ko‘nikmalari integratsiyasi · 1st-year final test · <span id="total"></span> questions</div>
 <div class="mode"><h2>Mode A: Full test</h2><div class="mu">All questions in the original order.</div>
@@ -100,7 +122,7 @@ label.t{display:flex;gap:8px;align-items:center;margin-top:14px;font-size:.92rem
 </section>
 
 <section id="result" hidden>
-<div class="card score"><div class="mu">Your result</div><div class="big" id="pct"></div><div id="msg" class="mu"></div>
+<div class="card score"><div class="mu">Your result</div><div class="big" id="pct"></div><div id="msg" class="mu"></div><div id="saved" class="mu" style="margin-top:6px"></div>
 <div class="stats">
 <div class="g"><span class="ic"><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></span><span id="nc"></span> correct</div>
 <div class="r"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span><span id="nw"></span> wrong</div>
@@ -114,6 +136,29 @@ label.t{display:flex;gap:8px;align-items:center;margin-top:14px;font-size:.92rem
 <input type="search" id="sq" placeholder="Search in all questions and options" autocomplete="off">
 <div class="mu" id="sinfo" style="margin:8px 0 12px;min-height:1.3em"></div>
 <div id="slist"></div>
+</section>
+
+<section id="setup" class="card" hidden>
+<h1 id="setupTitle">Student profile</h1>
+<div class="mu" id="setupSub"></div>
+<label class="fl">Full name<input type="text" id="pName" maxlength="60" autocomplete="name" placeholder="Aliyev Vali"></label>
+<label class="fl">Academic group<input type="text" id="pGroup" maxlength="20" autocomplete="off" placeholder="XTA-26/5"></label>
+<div class="err" id="pErr"></div>
+<div class="row"><button class="btn" id="pSave">Save and continue</button><button class="btn sec" id="pCancel" hidden>Cancel</button></div>
+</section>
+
+<section id="profile" hidden>
+<div class="card">
+<div class="ph"><div class="av" id="pAv"></div><div><h1 id="pTitle"></h1><div class="mu" id="pGrp"></div></div>
+<button class="btn sec sm" id="pEdit">Edit profile</button></div>
+<div class="kp"><div><b id="kA"></b><span>Attempts</span></div><div><b id="kAvg"></b><span>Average</span></div><div><b id="kBest"></b><span>Best score</span></div></div>
+</div>
+<h2 class="sec">Test history</h2>
+<div id="hist"></div>
+<button class="btn sec sm" id="hClear" style="margin-top:10px" hidden>Clear history</button>
+<h2 class="sec">Profiles</h2>
+<div id="plist"></div>
+<button class="btn sec full" id="pNew">Add new profile</button>
 </section>
 </div>
 
@@ -135,7 +180,11 @@ $('fMinus').onclick=()=>{if(si>0){si--;applyFs()}};$('fPlus').onclick=()=>{if(si
 $('total').textContent=BANK.length;document.querySelectorAll('.max').forEach(e=>e.textContent=BANK.length);
 $('cnt').max=BANK.length;
 [10,20,30,50,100].filter(n=>n<=BANK.length).forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>$('cnt').value=n;$('chips').appendChild(b)});
-const show=id=>{['start','quiz','result','search'].forEach(s=>$(s).hidden=s!==id);cur=id;$('bSearch').classList.toggle('on',id==='search');$('bSearch').hidden=id==='quiz'};
+const show=id=>{if(!me()&&id!=='setup'){openSetup(null);return}
+ ['start','quiz','result','search','setup','profile'].forEach(s=>$(s).hidden=s!==id);cur=id;
+ $('bSearch').classList.toggle('on',id==='search');$('bProfile').classList.toggle('on',id==='profile');
+ const lock=id==='quiz'||id==='setup';$('bSearch').hidden=lock;$('bProfile').hidden=lock;
+ if(id==='start')updateWho();if(id==='profile')renderProfile()};
 function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
 
 /* Quiz */
@@ -165,6 +214,8 @@ function finish(){let c=0,w=0,s=0;ans.forEach((a,k)=>{if(a===null)s++;else if(a=
  const p=Math.round(c/set.length*100);
  $('pct').textContent=p+'%';$('nc').textContent=c;$('nw').textContent=w;$('ns').textContent=s;
  $('msg').textContent=c+' out of '+set.length+' — '+(p>=86?'Excellent!':p>=71?'Good job!':p>=56?'Not bad, keep practising.':'Keep practising — you can do it!');
+ const pr=me();$('saved').textContent='';
+ if(pr){pr.history.push({t:Date.now(),mode:label,total:set.length,c,w,s,p});saveDB();$('saved').textContent='Result saved to your profile history.'}
  $('retryW').hidden=(w+s)===0;filter='all';review();show('result');window.scrollTo(0,0)}
 function review(){$('review').innerHTML=set.map((x,k)=>{const a=ans[k],ok=a===x.a;if(filter==='w'&&ok)return'';if(filter==='c'&&!ok)return'';
  return `<div class="rv ${ok?'c':'w'}"><p>${k+1}. ${fmt(x.q)}</p>
@@ -184,6 +235,56 @@ document.addEventListener('keydown',e=>{
  else if(/^[1-4]$/.test(k)){e.preventDefault();if(instant&&ans[i]!==null)return;ans[i]=set[i].ord[+k-1];render()}
  else if(k==='Enter'&&i===set.length-1){e.preventDefault();if(document.activeElement)document.activeElement.blur();goNext()}
 });
+
+/* Profiles and progress (localStorage) */
+let DB={profiles:[],active:null};
+try{const r=JSON.parse(store.get('fe-db')||'null');if(r&&Array.isArray(r.profiles))DB=r}catch(e){}
+DB.profiles.forEach(p=>{if(!Array.isArray(p.history))p.history=[]});
+const saveDB=()=>store.set('fe-db',JSON.stringify(DB));
+const me=()=>DB.profiles.find(p=>p.id===DB.active)||null;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const ICON_TRASH='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg>';
+const ICON_USER='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>';
+let setupEdit=null,setupFirst=false,beforeProfile='start';
+function updateWho(){const p=me();$('who').innerHTML=p?ICON_USER+'<span>'+esc(p.name)+' · '+esc(p.group)+'</span>':''}
+function openSetup(editId){setupEdit=editId;setupFirst=DB.profiles.length===0;
+ const p=editId?DB.profiles.find(x=>x.id===editId):null;
+ $('setupTitle').textContent=p?'Edit profile':(setupFirst?'Welcome':'New profile');
+ $('setupSub').textContent=setupFirst?'Enter your details once. Your results will be saved on this device.':'';
+ $('pName').value=p?p.name:'';$('pGroup').value=p?p.group:'';$('pErr').textContent='';
+ $('pCancel').hidden=setupFirst&&!DB.profiles.length;
+ show('setup');$('pName').focus()}
+function saveSetup(){const n=$('pName').value.trim().replace(/\s+/g,' '),g=$('pGroup').value.trim();
+ if(n.length<2){$('pErr').textContent='Enter your full name.';return}
+ if(!g){$('pErr').textContent='Enter your academic group.';return}
+ if(setupEdit){const p=DB.profiles.find(x=>x.id===setupEdit);p.name=n;p.group=g}
+ else{const p={id:uid(),name:n,group:g,history:[]};DB.profiles.push(p);DB.active=p.id}
+ saveDB();show(setupFirst?'start':'profile')}
+$('pSave').onclick=saveSetup;
+$('pCancel').onclick=()=>show(me()?'profile':'start');
+[$('pName'),$('pGroup')].forEach(e=>e.addEventListener('keydown',k=>{if(k.key==='Enter'){k.preventDefault();saveSetup()}}));
+$('bProfile').onclick=()=>{if(cur==='profile'){show(beforeProfile);return}beforeProfile=cur;show('profile')};
+$('pEdit').onclick=()=>openSetup(DB.active);
+$('pNew').onclick=()=>openSetup(null);
+function fmtDate(t){const d=new Date(t),z=n=>String(n).padStart(2,'0');return z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear()+' '+z(d.getHours())+':'+z(d.getMinutes())}
+function renderProfile(){const p=me();if(!p)return;
+ const ini=p.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+ $('pAv').textContent=ini;$('pTitle').textContent=p.name;$('pGrp').textContent='Group: '+p.group;
+ const H=p.history,n=H.length;
+ $('kA').textContent=n;$('kAvg').textContent=n?Math.round(H.reduce((a,r)=>a+r.p,0)/n)+'%':'-';$('kBest').textContent=n?Math.max(...H.map(r=>r.p))+'%':'-';
+ $('hClear').hidden=!n;
+ $('hist').innerHTML=n?'<div class="sc"><table><thead><tr><th>Date</th><th>Mode</th><th>Total</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Score</th></tr></thead><tbody>'+
+  H.slice().reverse().map(r=>`<tr><td>${fmtDate(r.t)}</td><td>${esc(r.mode)}</td><td>${r.total}</td><td>${r.c}</td><td>${r.w}</td><td>${r.s}</td><td><span class="pill ${r.p>=71?'ok':r.p>=56?'mid':'no'}">${r.p}%</span></td></tr>`).join('')+'</tbody></table></div>'
+  :'<div class="card empty">No completed tests yet.</div>';
+ $('plist').innerHTML=DB.profiles.map(q=>`<div class="prow"><div><b>${esc(q.name)}</b><span class="mu">${esc(q.group)} · ${q.history.length} attempt${q.history.length===1?'':'s'}</span></div>
+  ${q.id===DB.active?'<span class="tag">Active</span>':`<button class="btn sec sm" data-act="sw" data-id="${q.id}">Switch</button>`}
+  <button class="ib" style="width:36px;height:36px" data-act="del" data-id="${q.id}" aria-label="Delete profile">${ICON_TRASH}</button></div>`).join('')}
+$('plist').onclick=e=>{const b=e.target.closest('button[data-act]');if(!b)return;const id=b.dataset.id;
+ if(b.dataset.act==='sw'){DB.active=id;saveDB();renderProfile()}
+ else{const q=DB.profiles.find(x=>x.id===id);if(!confirm('Delete profile "'+q.name+'" and all of its history?'))return;
+  DB.profiles=DB.profiles.filter(x=>x.id!==id);if(DB.active===id)DB.active=DB.profiles.length?DB.profiles[0].id:null;saveDB();
+  if(!DB.profiles.length){openSetup(null)}else renderProfile()}};
+$('hClear').onclick=()=>{if(confirm('Clear all test history for this profile?')){me().history=[];saveDB();renderProfile()}};
 
 /* Global search */
 const norm=s=>s.toLowerCase().replace(/[\u2018\u2019\u02bb\u02bc\u02b9`\u00b4]/g,"'");
@@ -209,4 +310,7 @@ function runSearch(){const raw=$('sq').value.trim();
   <div class="q" style="font-size:1.05rem">${x.n}. ${hl(x.q,terms).replace(/___/g,'<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</div>
   ${L.map(k=>`<div class="so${k===x.a?' ok':''}${hits.has(k)?' hit':''}"><b>${k})</b> ${hl(x.o[k],terms)}</div>`).join('')}
   <div class="mu" style="margin-top:10px">${where.map(w=>'<span class="tag">'+w+'</span>').join('')}</div></div>`).join(''):'<div class="empty">Nothing found. Try a shorter word.</div>'}
+
+if(!me()&&DB.profiles.length)DB.active=DB.profiles[0].id;
+if(me())show("start");else openSetup(null);
 </script></body></html>
