@@ -86,14 +86,32 @@ th{color:var(--mu);font-weight:600;font-size:.8rem;background:var(--bg)}tr:last-
 .sm{padding:7px 12px;font-size:.9rem}
 h2.sec{margin:22px 0 10px}
 [hidden]{display:none!important}
+
+input[type=password],textarea{width:100%;font:inherit;padding:12px 14px;border:2px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx);outline:none;margin-top:6px}
+textarea{resize:vertical;min-height:80px}input[type=password]:focus,textarea:focus{border-color:var(--ac)}
+.num{display:inline-block;background:var(--ac);color:#fff;border-radius:7px;padding:0 8px;font-size:.85rem;font-weight:600;flex:none}
+:root[data-theme="dark"] .num{color:#0f1220}
+.abar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.note{margin-top:10px;font-size:.85rem;color:var(--mu);background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:8px 12px}
+.msg{min-height:1.3em;margin-top:8px;font-size:.9rem;color:var(--ok)}
+.arow{display:flex;align-items:center;gap:10px;border:1px solid var(--ln);background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.arow:hover{border-color:var(--ac)}.arow .at{flex:1;min-width:0}
+.aq{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:600;font-size:.95rem}
+.ck{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:.92rem}
+.eo{border:1px solid var(--ln);border-radius:12px;padding:4px 12px 12px;margin-top:12px}
+.ib.fl{width:36px;height:36px;flex:none}
+.tag.mod{background:var(--nos);color:var(--no)}.tag.nw{background:var(--oks);color:var(--ok)}
+
+.ib.lg{width:auto;padding:0 12px;gap:6px;font-weight:700;font-size:.8rem}.ib.lg svg{width:18px;height:18px}
 </style></head><body><div class="w">
 
 <div class="tb">
-<button class="ib" id="bProfile" aria-label="Student profile"><svg id="pUser" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><svg id="pExit" viewBox="0 0 24 24"><path d="M15 21h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4"/><path d="m8 17-5-5 5-5"/><path d="M3 12h12"/></svg></button>
-<button class="ib" id="bSearch" aria-label="Search all questions"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-<button class="ib" id="fMinus" aria-label="Decrease font size"><svg viewBox="0 0 24 24"><path d="M3 18 8 6l5 12M5 14h6"/><path d="M16 12h6"/></svg></button>
-<button class="ib" id="fPlus" aria-label="Increase font size"><svg viewBox="0 0 24 24"><path d="M3 18 8 6l5 12M5 14h6"/><path d="M19 9v6M16 12h6"/></svg></button>
-<button class="ib" id="bTheme" aria-label="Toggle theme">
+<button class="ib lg" id="bLang" aria-label="Language" hidden><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span id="lgTxt"></span></button>
+<button class="ib" id="bProfile" data-al="aProfile"><svg id="pUser" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><svg id="pExit" viewBox="0 0 24 24"><path d="M15 21h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4"/><path d="m8 17-5-5 5-5"/><path d="M3 12h12"/></svg></button>
+<button class="ib" id="bSearch" data-al="aSearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button class="ib" id="fMinus" data-al="aFMinus"><svg viewBox="0 0 24 24"><path d="M3 18 8 6l5 12M5 14h6"/><path d="M16 12h6"/></svg></button>
+<button class="ib" id="fPlus" data-al="aFPlus"><svg viewBox="0 0 24 24"><path d="M3 18 8 6l5 12M5 14h6"/><path d="M19 9v6M16 12h6"/></svg></button>
+<button class="ib" id="bTheme" data-al="aTheme">
 <svg id="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
 <svg id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
 </button>
@@ -101,134 +119,302 @@ h2.sec{margin:22px 0 10px}
 
 <section id="start" class="card">
 <div class="who" id="who"></div>
-<h1>Final Exam</h1>
-<div class="mu">Nutq ko‘nikmalari integratsiyasi · 1st-year final test · <span id="total"></span> questions</div>
-<div class="mode"><h2>Mode A: Full test</h2><div class="mu">All questions in the original order.</div>
-<button class="btn full" id="goFull">Start full test</button></div>
-<div class="mode"><h2>Mode B: Custom random test</h2><div class="mu">Pick how many questions you want. They are chosen randomly and shuffled.</div>
-<div class="row" style="margin-top:10px"><input type="number" id="cnt" min="1" value="30" inputmode="numeric"><span class="mu">questions (1–<span class="max"></span>)</span></div>
+<h1 data-i="title" id="title1" style="user-select:none"></h1>
+<div class="mu" id="sub"></div>
+<div class="mode"><h2 data-i="modeA"></h2><div class="mu" data-i="modeAd"></div>
+<button class="btn full" id="goFull" data-i="goFull"></button></div>
+<div class="mode"><h2 data-i="modeB"></h2><div class="mu" data-i="modeBd"></div>
+<div class="row" style="margin-top:10px"><input type="number" id="cnt" min="1" value="30" inputmode="numeric"><span class="mu" id="rng"></span></div>
 <div class="chips" id="chips"></div><div class="err" id="err"></div>
-<button class="btn full" id="goRand">Start random test</button></div>
-<label class="t"><input type="checkbox" id="instant" checked> Show correct answer immediately after each question</label>
+<button class="btn full" id="goRand" data-i="goRand"></button></div>
+<label class="t"><input type="checkbox" id="instant" checked> <span data-i="instant"></span></label>
 </section>
 
 <section id="quiz" hidden>
 <div class="top"><span id="mode"></span><span id="pos"></span></div>
 <div class="bar"><i id="pb"></i></div>
 <div class="card"><div class="q" id="qt"></div><div id="opts"></div>
-<div class="nav"><button class="btn sec" id="prev">Back</button><button class="btn" id="next">Next</button></div></div>
+<div class="nav"><button class="btn sec" id="prev" data-i="back"></button><button class="btn" id="next"></button></div></div>
 <div class="dots" id="dots"></div>
-<button class="btn sec full" id="quit">Quit to menu</button>
+<button class="btn sec full" id="finishHere" data-i="finishHere"></button>
+<button class="btn sec full" id="quit" data-i="quit"></button>
 </section>
 
 <section id="result" hidden>
-<div class="card score"><div class="mu">Your result</div><div class="big" id="pct"></div><div id="msg" class="mu"></div><div id="saved" class="mu" style="margin-top:6px"></div>
+<div class="card score"><div class="mu" data-i="yourResult"></div><div class="big" id="pct"></div><div id="msg" class="mu"></div><div id="saved" class="mu" style="margin-top:6px"></div><div id="partial" class="mu" style="margin-top:6px"></div>
 <div class="stats">
-<div class="g"><span class="ic"><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></span><span id="nc"></span> correct</div>
-<div class="r"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span><span id="nw"></span> wrong</div>
-<div class="mu"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></span><span id="ns"></span> skipped</div></div>
-<div class="row" style="justify-content:center"><button class="btn" id="again">New test</button><button class="btn sec" id="retryW">Retry mistakes</button></div></div>
-<div class="tabs"><button class="chip" data-f="all">All</button><button class="chip" data-f="w">Wrong / skipped</button><button class="chip" data-f="c">Correct</button></div>
+<div class="g"><span class="ic"><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></span><span id="nc"></span> <span data-i="correct"></span></div>
+<div class="r"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span><span id="nw"></span> <span data-i="wrong"></span></div>
+<div class="mu"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></span><span id="ns"></span> <span data-i="skipped"></span></div></div>
+<div class="row" style="justify-content:center"><button class="btn" id="again" data-i="newTest"></button><button class="btn sec" id="retryW" data-i="retry"></button></div></div>
+<div class="tabs"><button class="chip" data-f="all" data-i="fAll"></button><button class="chip" data-f="w" data-i="fWrong"></button><button class="chip" data-f="c" data-i="fCorrect"></button></div>
 <div id="review"></div>
 </section>
 
 <section id="search" hidden>
-<input type="search" id="sq" placeholder="Search in all questions and options" autocomplete="off">
+<input type="search" id="sq" data-ph="sPh" autocomplete="off">
 <div class="mu" id="sinfo" style="margin:8px 0 12px;min-height:1.3em"></div>
 <div id="slist"></div>
 </section>
 
 <section id="setup" class="card" hidden>
-<h1 id="setupTitle">Student profile</h1>
+<h1 id="setupTitle"></h1>
 <div class="mu" id="setupSub"></div>
-<label class="fl">Full name<input type="text" id="pName" maxlength="60" autocomplete="name" placeholder="Aliyev Vali"></label>
-<label class="fl">Academic group<input type="text" id="pGroup" maxlength="20" autocomplete="off" placeholder="XTA-26/5"></label>
+<label class="fl"><span data-i="fName"></span><input type="text" id="pName" maxlength="60" autocomplete="name" placeholder="Aliyev Vali"></label>
+<label class="fl"><span data-i="fGroup"></span><input type="text" id="pGroup" maxlength="20" autocomplete="off" placeholder="XTA-26/5"></label>
 <div class="err" id="pErr"></div>
-<div class="row"><button class="btn" id="pSave">Save and continue</button><button class="btn sec" id="pCancel" hidden>Cancel</button></div>
+<div class="row"><button class="btn" id="pSave" data-i="save"></button><button class="btn sec" id="pCancel" data-i="cancel" hidden></button></div>
 </section>
 
 <section id="profile" hidden>
 <div class="card">
 <div class="ph"><div class="av" id="pAv"></div><div><h1 id="pTitle"></h1><div class="mu" id="pGrp"></div></div>
-<button class="btn sec sm" id="pEdit">Edit profile</button></div>
-<div class="kp"><div><b id="kA"></b><span>Attempts</span></div><div><b id="kAvg"></b><span>Average</span></div><div><b id="kBest"></b><span>Best score</span></div></div>
+<button class="btn sec sm" id="pEdit" data-i="editProfile"></button></div>
+<div class="kp"><div><b id="kA"></b><span data-i="attempts"></span></div><div><b id="kAvg"></b><span data-i="average"></span></div><div><b id="kBest"></b><span data-i="best"></span></div></div>
 </div>
-<h2 class="sec">Test history</h2>
+<h2 class="sec" data-i="history"></h2>
 <div id="hist"></div>
-<button class="btn sec sm" id="hClear" style="margin-top:10px" hidden>Clear history</button>
-<h2 class="sec">Profiles</h2>
+<button class="btn sec sm" id="hClear" style="margin-top:10px" data-i="clearH" hidden></button>
+<h2 class="sec" data-i="profiles"></h2>
 <div id="plist"></div>
-<button class="btn sec full" id="pNew">Add new profile</button>
+<button class="btn sec full" id="pNew" data-i="addProfile"></button>
+</section>
+
+<section id="admin" hidden>
+<div id="aGate" class="card" hidden>
+<h2 data-i="admTitle"></h2>
+<label class="fl"><span data-i="pinLbl"></span><input type="password" id="gIn" autocomplete="off"></label>
+<div class="err" id="gErr"></div>
+<div class="row"><button class="btn" id="gGo" data-i="pinEnter"></button><button class="btn sec" id="gExit" data-i="admBack"></button></div>
+</div>
+<div id="aPanel">
+<div class="card">
+<div class="row" style="justify-content:space-between"><h1 style="font-size:1.3rem;margin:0" data-i="admTitle"></h1><button class="btn sec sm" id="aExit" data-i="admBack"></button></div>
+<div class="mu" id="aSum" style="margin-top:6px"></div>
+<div class="note" data-i="admNote"></div>
+<div class="abar">
+<button class="btn sm" id="aAdd" data-i="addQ"></button>
+<button class="btn sm" id="aSite" data-i="dlSite"></button>
+<button class="btn sec sm" id="aExp" data-i="expJson"></button>
+<button class="btn sec sm" id="aImp" data-i="impJson"></button>
+<button class="btn sec sm" id="aRst" data-i="resetAll"></button>
+</div>
+<input type="file" id="aFile" accept=".json,application/json" hidden>
+<div class="msg" id="aMsg"></div>
+<div class="row" style="margin-top:6px"><input type="password" id="pinIn" data-ph="pinPh" autocomplete="off" style="max-width:240px;margin-top:0"><button class="btn sec sm" id="pinSet" data-i="pinSet"></button><button class="btn sec sm" id="pinOff" data-i="pinOff" hidden></button></div>
+</div>
+<div class="card" style="margin-top:14px">
+<div class="row" style="justify-content:space-between"><h2 style="margin:0" data-i="stTitle"></h2><button class="btn sec sm" id="stExp" data-i="stExport"></button></div>
+<div class="mu" data-i="stNote" style="margin-top:4px"></div>
+<div class="mu" id="stSum" style="margin:8px 0 10px"></div>
+<div id="stTable"></div>
+</div>
+<div style="margin-top:14px"><input type="search" id="aSq" data-ph="aSqPh" autocomplete="off">
+<div class="chips"><button class="chip" data-af="all" data-i="fAll"></button><button class="chip" data-af="mod" data-i="fMod"></button><button class="chip" data-af="flag" data-i="fFlag"></button></div></div>
+<div id="aList" style="margin-top:10px"></div>
+</div>
+</section>
+
+<section id="aedit" class="card" hidden>
+<h1 id="eTitle" style="font-size:1.3rem"></h1>
+<label class="fl"><span data-i="lblQ"></span><textarea id="eQ" rows="3"></textarea></label>
+<div class="eo"><label class="fl"><span id="eL0"></span><input type="text" id="eO0" maxlength="400"></label><label class="ck"><input type="checkbox" id="eC0"> <span data-i="lblCorr"></span></label></div>
+<div class="eo"><label class="fl"><span id="eL1"></span><input type="text" id="eO1" maxlength="400"></label><label class="ck"><input type="checkbox" id="eC1"> <span data-i="lblCorr"></span></label></div>
+<div class="eo"><label class="fl"><span id="eL2"></span><input type="text" id="eO2" maxlength="400"></label><label class="ck"><input type="checkbox" id="eC2"> <span data-i="lblCorr"></span></label></div>
+<div class="eo"><label class="fl"><span id="eL3"></span><input type="text" id="eO3" maxlength="400"></label><label class="ck"><input type="checkbox" id="eC3"> <span data-i="lblCorr"></span></label></div>
+
+<div class="err" id="eErr"></div>
+<div class="abar">
+<button class="btn" id="eSave" data-i="eSave"></button>
+<button class="btn" id="eSaveNext" data-i="eSaveNext"></button>
+<button class="btn sec" id="eBack" data-i="eBack"></button>
+</div>
+<div class="abar">
+<button class="btn sec sm" id="eFlag"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></span><span data-i="eFlagT"></span></button>
+<button class="btn sec sm" id="eReset" data-i="eReset" hidden></button>
+<button class="btn sec sm" id="eDel" data-i="eDel" style="color:var(--no)"></button>
+</div>
 </section>
 </div>
 
+<script id="bankData" type="application/json">[{"n": 1, "q": "Where ___ your sister work?", "o": ["does", "do", "is", "are"], "c": [0]}, {"n": 2, "q": "___ your friend from Canada?", "o": ["Do", "Does", "Are", "Is"], "c": [3]}, {"n": 3, "q": "How many films ___ you see last year?", "o": ["does", "are", "did", "do"], "c": [2]}, {"n": 4, "q": "Why ___ he move to London?", "o": ["has", "did", "does", "is"], "c": [1]}, {"n": 5, "q": "What ___ your new classmate like?", "o": ["is", "do", "does", "are"], "c": [0]}, {"n": 6, "q": "___ you often visit your cousins?", "o": ["Does", "Are", "Is", "Do"], "c": [3]}, {"n": 7, "q": "Who ___ your English teacher?", "o": ["does", "are", "is", "do"], "c": [2]}, {"n": 8, "q": "What time ___ the next bus leave?", "o": ["are", "does", "do", "is"], "c": [1]}, {"n": 9, "q": "How much ___ these tickets cost?", "o": ["do", "does", "is", "has"], "c": [0]}, {"n": 10, "q": "Where ___ you go on holiday last summer?", "o": ["do", "are", "have", "did"], "c": [3]}, {"n": 11, "q": "Maya usually ___ magazines after class.", "o": ["read", "reading", "reads", "is reading"], "c": [2]}, {"n": 12, "q": "Look! The children ___ football outside.", "o": ["played", "are playing", "play", "plays"], "c": [1]}, {"n": 13, "q": "My father ___ in an office.", "o": ["works", "work", "is work", "working"], "c": [0]}, {"n": 14, "q": "We ___ for the train right now.", "o": ["wait", "waits", "waited", "are waiting"], "c": [3]}, {"n": 15, "q": "He ___ to the gym every Friday.", "o": ["is go", "going", "goes", "go"], "c": [2]}, {"n": 16, "q": "Listen! Someone ___ at the door.", "o": ["knocked", "is knocking", "knocks", "knock"], "c": [1]}, {"n": 17, "q": "I ___ my homework at the moment.", "o": ["am doing", "do", "does", "did"], "c": [0]}, {"n": 18, "q": "She ___ social media every day.", "o": ["use", "is use", "using", "uses"], "c": [3]}, {"n": 19, "q": "They ___ dinner now.", "o": ["has", "had", "are having", "have"], "c": [2]}, {"n": 20, "q": "My brother ___ French at university this term.", "o": ["studied", "is studying", "study", "studies"], "c": [1]}, {"n": 21, "q": "Yesterday, we ___ the museum.", "o": ["visited", "visit", "visits", "visiting"], "c": [0]}, {"n": 22, "q": "The train ___ late last night.", "o": ["arrive", "arrives", "arriving", "arrived"], "c": [3]}, {"n": 23, "q": "I ___ a message from my sister yesterday.", "o": ["gets", "getting", "got", "get"], "c": [2]}, {"n": 24, "q": "She ___ a ticket online last week.", "o": ["buying", "bought", "buy", "buys"], "c": [1]}, {"n": 25, "q": "They ___ in a small hotel during the trip.", "o": ["stayed", "stay", "stays", "staying"], "c": [0]}, {"n": 26, "q": "We ___ to Scotland last winter.", "o": ["go", "goes", "going", "went"], "c": [3]}, {"n": 27, "q": "He ___ his suitcase before breakfast.", "o": ["pack", "packing", "packed", "packs"], "c": [2]}, {"n": 28, "q": "I ___ the new film on Saturday.", "o": ["watching", "watched", "watch", "watches"], "c": [1]}, {"n": 29, "q": "Our plane ___ at nine o’clock.", "o": ["left", "leave", "leaves", "leaving"], "c": [0]}, {"n": 30, "q": "Did you ___ your passport?", "o": ["brought", "brings", "bringing", "bring"], "c": [3]}, {"n": 31, "q": "At eight o’clock, I ___ for the bus.", "o": ["wait", "am waiting", "was waiting", "waited"], "c": [2]}, {"n": 32, "q": "They ___ TV when I called.", "o": ["are watching", "were watching", "watched", "watch"], "c": [1]}, {"n": 33, "q": "She ___ her car when it started to rain.", "o": ["was driving", "drove", "drives", "drive"], "c": [0]}, {"n": 34, "q": "We ___ dinner at seven yesterday.", "o": ["have", "had", "are having", "were having"], "c": [3]}, {"n": 35, "q": "What ___ you doing when the train arrived?", "o": ["did", "are", "were", "was"], "c": [2]}, {"n": 36, "q": "My uncle ___ at the airport when we got there.", "o": ["is waiting", "was waiting", "wait", "waits"], "c": [1]}, {"n": 37, "q": "The tourists ___ photos in the city centre.", "o": ["were taking", "take", "takes", "are take"], "c": [0]}, {"n": 38, "q": "He ___ his phone when he lost his bag.", "o": ["uses", "use", "is using", "was using"], "c": [3]}, {"n": 39, "q": "I ___ a book while my sister was sleeping.", "o": ["reads", "am reading", "was reading", "read"], "c": [2]}, {"n": 40, "q": "It ___ when we left the hotel.", "o": ["is snowing", "was snowing", "snows", "snow"], "c": [1]}, {"n": 41, "q": "I ___ never been to Paris.", "o": ["have", "has", "am", "did"], "c": [0]}, {"n": 42, "q": "She ___ already finished her homework.", "o": ["have", "is", "did", "has"], "c": [3]}, {"n": 43, "q": "Have you ___ your friends this week?", "o": ["see", "seeing", "seen", "saw"], "c": [2]}, {"n": 44, "q": "We haven’t bought the tickets ___.", "o": ["last", "yet", "already", "yesterday"], "c": [1]}, {"n": 45, "q": "He has ___ donated money to charity.", "o": ["already", "yesterday", "last", "ago"], "c": [0]}, {"n": 46, "q": "___ they ever visited Berlin?", "o": ["Has", "Did", "Are", "Have"], "c": [3]}, {"n": 47, "q": "My sister has ___ a new laptop.", "o": ["buying", "buys", "bought", "buy"], "c": [2]}, {"n": 48, "q": "I ___ not tried that restaurant yet.", "o": ["did", "have", "has", "am"], "c": [1]}, {"n": 49, "q": "Has she ___ her grandparents today?", "o": ["called", "call", "calls", "calling"], "c": [0]}, {"n": 50, "q": "They have ___ some money for their trip.", "o": ["save", "saves", "saving", "saved"], "c": [3]}, {"n": 51, "q": "Dilnoza has bought eggs and flour. She ___ a cake for tomorrow’s celebration.", "o": ["going to bake", "is going bake", "is going to bake", "are going to bake"], "c": [2]}, {"n": 52, "q": "We ___ our cousins this Friday; the tickets are already booked.", "o": ["are visiting", "is visit", "visiting", "visits"], "c": [0]}, {"n": 53, "q": "___ you going to invite your classmates to the wedding?", "o": ["Are", "Have", "Does", "Do"], "c": [0]}, {"n": 54, "q": "I ___ to wear my new jacket at the party.", "o": ["is going", "am go", "going", "am going"], "c": [3]}, {"n": 55, "q": "“These bags are heavy.” “Don’t worry. I ___ you carry them.”", "o": ["will help", "to help", "will helping", "helped"], "c": [0]}, {"n": 56, "q": "I don’t think the café ___ open before nine tomorrow.", "o": ["will being", "will be", "will is", "was being"], "c": [1]}, {"n": 57, "q": "Make a suggestion: “___ we go to the food festival on Sunday?”", "o": ["Have", "Are", "Does", "Shall"], "c": [3]}, {"n": 58, "q": "“Are you free on Saturday?” “Sorry, I ___. I’ve already got plans.”", "o": ["isn’t", "am not", "aren’t", "doesn’t"], "c": [1]}, {"n": 59, "q": "That blue shirt really ___ you.", "o": ["suits", "suiting", "suit", "is suit"], "c": [0]}, {"n": 60, "q": "Dad put on a jacket and matching trousers. He was wearing a ___.", "o": ["glove", "suit", "scarf", "cap"], "c": [1]}, {"n": 61, "q": "She kept her hands warm with a pair of ___.", "o": ["boots", "belts", "ties", "gloves"], "c": [3]}, {"n": 62, "q": "The concert hall was ___; it was full of people and there were no seats left.", "o": ["peaceful", "empty", "quiet", "crowded"], "c": [3]}, {"n": 63, "q": "A calm place with very little noise is ___.", "o": ["crowded", "dirty", "expensive", "peaceful"], "c": [3]}, {"n": 64, "q": "I need someone to take care of my little brother. Could you ___ him while I’m out?", "o": ["look for", "look after", "look at", "look like"], "c": [1]}, {"n": 65, "q": "I’ve lost one glove. I’m ___ it.", "o": ["looking after", "looking like", "looking up", "looking for"], "c": [3]}, {"n": 66, "q": "You really ___ your mother; you have the same eyes and face.", "o": ["look for", "look after", "look like", "look up"], "c": [2]}, {"n": 67, "q": "You must work during your friend’s party. Reply politely: “Thank you for inviting - me, but ___.”", "o": ["I’m afraid I can’t come", "this is my ticket", "it was nice to meet you", "it costs twenty pounds"], "c": [0]}, {"n": 68, "q": "He ___ to open the shop at eight every morning.", "o": ["must", "have", "has", "can"], "c": [2]}, {"n": 69, "q": "Company rules say staff ___ wear trainers in the laboratory. It is forbidden.", "o": ["don’t have to", "mustn’t", "might", "should"], "c": [1]}, {"n": 70, "q": "It’s optional, so you ___ come in on Saturday.", "o": ["are not allowed to", "must", "don’t have to", "mustn’t"], "c": [2]}, {"n": 71, "q": "“___ you have to work late today?” “Yes, I do.”", "o": ["Does", "Have", "Are", "Do"], "c": [3]}, {"n": 72, "q": "Did the new employee ___ attend a training course?", "o": ["have to", "has to", "had to", "having to"], "c": [0]}, {"n": 73, "q": "You can ___ a short break after finishing the task.", "o": ["to take", "taking", "takes", "take"], "c": [3]}, {"n": 74, "q": "The company ___ probably open a second office next year.", "o": ["would to", "will", "is", "might to"], "c": [1]}, {"n": 75, "q": "I’m not certain, but the manager ___ offer me a permanent job.", "o": ["mights", "is might", "might to", "might"], "c": [3]}, {"n": 76, "q": "She ___ get the job because she has all the right qualifications.", "o": ["probably will to", "will probably", "will probable", "will probably to"], "c": [1]}, {"n": 77, "q": "At the ___, the manager asked me why I wanted the job.", "o": ["contract", "interview", "salary", "shift"], "c": [1]}, {"n": 78, "q": "A person who works for a company is an ___.", "o": ["customer", "passenger", "employee", "employer"], "c": [2]}, {"n": 79, "q": "My brother has a full-time ___ in a bookshop.", "o": ["work", "cargo", "job", "employment"], "c": [2]}, {"n": 80, "q": "I have a lot of ___ to finish before I leave the office.", "o": ["interview", "career", "job", "work"], "c": [3]}, {"n": 81, "q": "All applicants must send their ___, which lists their education and work experience.", "o": ["wages", "prescription", "receipt", "CV"], "c": [3]}, {"n": 82, "q": "She’s looking ___ a new job with regular working hours.", "o": ["for", "of", "from", "to"], "c": [0]}, {"n": 83, "q": "When I’m on the night ___, I start work at ten p.m.", "o": ["salary", "interview", "application", "shift"], "c": [3]}, {"n": 84, "q": "Would you like me ___ the files for you?", "o": ["organise", "to organise", "organised", "organising"], "c": [1]}, {"n": 85, "q": "If you’re worried about your exam, you should ___ to your teacher.", "o": ["speak", "speaks", "speaking", "to speak"], "c": [0]}, {"n": 86, "q": "You look tired. You ___ stay up late again tonight.", "o": ["should to", "shouldn’t", "shouldn’t to", "don’t should"], "c": [1]}, {"n": 87, "q": "___ put hot drinks near your laptop.", "o": ["Don’t", "Not", "Doesn’t", "No"], "c": [0]}, {"n": 88, "q": "Please ___ your password in a safe place.", "o": ["keeping", "keeps", "keep", "kept"], "c": [2]}, {"n": 89, "q": "I went to the supermarket ___ some water before the journey.", "o": ["to buy", "for buy", "to buying", "buys"], "c": [0]}, {"n": 90, "q": "It was difficult ___ the path in the dark.", "o": ["sees", "to seeing", "to seen", "to see"], "c": [3]}, {"n": 91, "q": "We were pleased ___ that nobody was hurt.", "o": ["to hearing", "heard", "to hear", "hear"], "c": [2]}, {"n": 92, "q": "It depends ___ the weather whether we go camping.", "o": ["to", "on", "at", "for"], "c": [1]}, {"n": 93, "q": "He worries ___ making mistakes when he speaks English.", "o": ["about", "of", "from", "on"], "c": [0]}, {"n": 94, "q": "I apologised ___ my teacher for arriving late.", "o": ["at", "from", "to", "of"], "c": [2]}, {"n": 95, "q": "The guided walk was very ___. I learnt something new at every stop.", "o": ["interests", "interested", "interesting", "interest"], "c": [2]}, {"n": 96, "q": "We were ___ by the loud noise outside the tent.", "o": ["frightened", "frightening", "frighten", "frightens"], "c": [0]}, {"n": 97, "q": "I felt ___ during the long delay because there was nothing to do.", "o": ["bores", "boring", "bored", "bore"], "c": [2]}, {"n": 98, "q": "The view from the mountain was ___; we could see three valleys.", "o": ["amazes", "amazement", "amazing", "amazed"], "c": [2]}, {"n": 99, "q": "What do you think I ___ do about my roommate’s late-night music?", "o": ["am", "should", "should to", "have"], "c": [1]}, {"n": 100, "q": "Listen ___ your friend’s advice before you decide.", "o": ["to", "from", "on", "of"], "c": [0]}, {"n": 101, "q": "My grandfather says life ___ in the past than it is today.", "o": ["was simple", "was simpler", "is simplest", "simpler"], "c": [1]}, {"n": 102, "q": "This is ___ achievement I have ever heard about.", "o": ["more impressive", "most impressive", "the most impressive", "the more impressive"], "c": [2]}, {"n": 103, "q": "People ___ travel abroad as often as they do now.", "o": ["didn’t use to", "weren’t use to", "didn’t used to", "don’t used to"], "c": [0]}, {"n": 104, "q": "My sister is much ___ at dealing with stress than I am.", "o": ["good", "better", "best", "the better"], "c": [1]}, {"n": 105, "q": "Which of these activities is ___ for your heart?", "o": ["healthy", "healthier", "the healthiest", "most healthy"], "c": [2]}, {"n": 106, "q": "I ___ have so much free time when I was at school.", "o": ["didn’t used to", "wasn’t use to", "didn’t use to", "don’t use to"], "c": [2]}, {"n": 107, "q": "The older I get, ___ I become about my health.", "o": ["careful", "the more careful", "more careful", "the most careful"], "c": [1]}, {"n": 108, "q": "That was one of ___ days of my life.", "o": ["exciting", "more exciting", "the most exciting", "the more exciting"], "c": [2]}, {"n": 109, "q": "Did your family ___ live in the countryside?", "o": ["used to", "use to", "using to", "uses to"], "c": [1]}, {"n": 110, "q": "This exercise is not as ___ as the one we did yesterday.", "o": ["difficult", "more difficult", "most difficult", "the difficult"], "c": [0]}, {"n": 111, "q": "If you have a high temperature, you may have a ___.", "o": ["headache", "fever", "bruise", "cut"], "c": [1]}, {"n": 112, "q": "I’ve got a terrible ___, so it hurts when I swallow.", "o": ["sore throat", "broken arm", "rash", "ankle"], "c": [0]}, {"n": 113, "q": "You should ___ regularly if you want to improve your fitness.", "o": ["take exercise", "make exercise", "do a medicine", "catch a diet"], "c": [0]}, {"n": 114, "q": "The doctor gave me a ___ for some antibiotics.", "o": ["receipt", "prescription", "review", "treatment"], "c": [1]}, {"n": 115, "q": "He twisted his ___ while playing basketball and now he can’t walk comfortably.", "o": ["wrist", "ankle", "throat", "chest"], "c": [1]}, {"n": 116, "q": "You should get more sleep and eat a balanced diet to improve your ___.", "o": ["lifestyle", "symptom", "injury", "medicine"], "c": [0]}, {"n": 117, "q": "The nurse told me to take two ___ of this medicine a day.", "o": ["doses", "pains", "aches", "symptoms"], "c": [0]}, {"n": 118, "q": "If you have a bad cough, you should make an appointment with your ___.", "o": ["coach", "dentist", "GP", "pharmacist’s shop"], "c": [2]}, {"n": 119, "q": "After the operation, she needed several weeks to ___ completely.", "o": ["recover", "injure", "ache", "treat"], "c": [0]}, {"n": 120, "q": "I’ve been sitting at my desk all day, so I need to ___ and stretch my legs.", "o": ["get a prescription", "take a break", "catch a cold", "have a symptom"], "c": [1]}, {"n": 121, "q": "The stadium ___ in 2018.", "o": ["built", "was built", "is build", "was building"], "c": [1]}, {"n": 122, "q": "English ___ in many countries around the world.", "o": ["speaks", "is spoken", "spoke", "is speaking"], "c": [1]}, {"n": 123, "q": "The paintings ___ by a local artist last year.", "o": ["were created", "created", "are create", "was created"], "c": [0]}, {"n": 124, "q": "This sports centre ___ every day at 6 a.m.", "o": ["opens", "is opened", "opened by", "is opening"], "c": [0]}, {"n": 125, "q": "The book ___ into several languages in the twentieth century.", "o": ["translated", "was translated", "is translate", "has translating"], "c": [1]}, {"n": 126, "q": "I’ve played volleyball ___ I was twelve.", "o": ["for", "since", "during", "from"], "c": [1]}, {"n": 127, "q": "We’ve lived in this neighbourhood ___ nearly five years.", "o": ["since", "for", "during", "ago"], "c": [1]}, {"n": 128, "q": "How long ___ your brother been interested in photography?", "o": ["did", "is", "has", "have"], "c": [2]}, {"n": 129, "q": "The match ___ because of the heavy rain yesterday.", "o": ["was cancelled", "cancelled", "is cancel", "was cancelling"], "c": [0]}, {"n": 130, "q": "She has worked as a doctor ___ 2021.", "o": ["for", "since", "from", "during"], "c": [1]}, {"n": 131, "q": "If it ___ tomorrow, we’ll play tennis indoors.", "o": ["will rain", "rains", "rained", "raining"], "c": [1]}, {"n": 132, "q": "If you don’t hurry, you ___ the beginning of the film.", "o": ["miss", "missed", "will miss", "would miss"], "c": [2]}, {"n": 133, "q": "I hope ___ a scholarship to study abroad.", "o": ["getting", "get", "to get", "got"], "c": [2]}, {"n": 134, "q": "He enjoys ___ documentaries about famous people.", "o": ["watch", "watching", "to watching", "watched"], "c": [1]}, {"n": 135, "q": "If she passes the exam, she ___ apply for the course.", "o": ["can", "would", "did", "has"], "c": [0]}, {"n": 136, "q": "They decided ___ a degree in sports science.", "o": ["studying", "study", "to study", "studied"], "c": [2]}, {"n": 137, "q": "I can’t stand ___ in long queues.", "o": ["wait", "to waiting", "waiting", "waited"], "c": [2]}, {"n": 138, "q": "If you ___ regularly, you’ll feel healthier.", "o": ["exercise", "will exercise", "exercised", "exercising"], "c": [0]}, {"n": 139, "q": "She promised ___ me when she arrived at the university.", "o": ["calling", "call", "to call", "called"], "c": [2]}, {"n": 140, "q": "We’re looking forward to ___ our new classmates.", "o": ["meet", "meeting", "to meet", "met"], "c": [1]}, {"n": 141, "q": "A person who studies law at university is studying for a ___ degree.", "o": ["medical", "law", "engineering", "art"], "c": [1]}, {"n": 142, "q": "She worked hard and finally ___ her goal of becoming a pilot.", "o": ["achieved", "passed", "attended", "applied"], "c": [0]}, {"n": 143, "q": "You need to ___ an application before the deadline.", "o": ["do", "make", "put", "take"], "c": [1]}, {"n": 144, "q": "I can’t go out tonight; I have to ___ my assignment until tomorrow.", "o": ["put off", "put up", "put on", "put away"], "c": [0]}, {"n": 145, "q": "The university has decided to ___ the meeting until next week.", "o": ["put out", "put off", "put up", "put down"], "c": [1]}, {"n": 146, "q": "Please ___ your hand if you know the answer.", "o": ["put up", "put off", "put out", "put away"], "c": [0]}, {"n": 147, "q": "He ___ a lot of weight after he started exercising and eating better.", "o": ["put off", "put on", "put up", "put out"], "c": [1]}, {"n": 148, "q": "I’m going to ___ my name for the photography competition.", "o": ["put forward", "put off", "put away", "put down"], "c": [3]}, {"n": 149, "q": "She wants to study medicine, so she’s applying for a ___ at university.", "o": ["subject", "degree", "symptom", "treatment"], "c": [1]}, {"n": 150, "q": "The fire service arrived quickly and ___ the fire.", "o": ["put away", "put up", "put out", "put on"], "c": [2]}, {"n": 151, "q": "If Rano ___ the course, she’ll get a certificate.", "o": ["completing", "completed", "will complete", "completes"], "c": [3]}, {"n": 152, "q": "Unless you save enough money, you ___ be able to pay the course fees next month.", "o": ["won’t", "haven’t", "didn’t", "doesn’t"], "c": [0]}, {"n": 153, "q": "If you don’t submit your application on time, the university ___ consider it.", "o": ["didn’t", "hasn’t", "wouldn’t to", "won’t"], "c": [3]}, {"n": 154, "q": "What will you do if you ___ the final exam?", "o": ["failing", "failed", "will fail", "fail"], "c": [3]}, {"n": 155, "q": "If Sara gets a scholarship, she ___ be able to study abroad.", "o": ["will", "was", "does", "has"], "c": [0]}, {"n": 156, "q": "Alisher hopes ___ his own design business after graduation.", "o": ["starting", "to start", "start", "started"], "c": [1]}, {"n": 157, "q": "My brother avoids ___ late for his university classes.", "o": ["being", "be", "to be", "been"], "c": [0]}, {"n": 158, "q": "We’re looking forward to ___ our results.", "o": ["to receive", "received", "receiving", "receive"], "c": [2]}, {"n": 159, "q": "They decided ___ the project before the end of term.", "o": ["finish", "finishing", "to finish", "finished"], "c": [2]}, {"n": 160, "q": "After four years at university, she ___ with a degree in biology.", "o": ["graduated", "resigned", "retired", "borrowed"], "c": [0]}, {"n": 161, "q": "We had to ___ our presentation until Friday because the tutor was ill.", "o": ["put away", "put off", "put out", "put on"], "c": [1]}, {"n": 162, "q": "The new laboratory course will help me ___ my goal of becoming an engineer.", "o": ["pass", "attend", "apply", "achieve"], "c": [3]}, {"n": 163, "q": "“Can I speak to Bekzod, please?” “___ a moment. I’ll call him.”", "o": ["Look for", "Get on", "Hold on", "Put off"], "c": [2]}, {"n": 164, "q": "If I ___ a wallet in the street, I would take it to the police.", "o": ["finds", "finding", "found", "to find"], "c": [2]}, {"n": 165, "q": "If my brother ___ more patient, he would argue less.", "o": ["were", "will be", "is", "has"], "c": [0]}, {"n": 166, "q": "What ___ you do if a shop gave you too much change?", "o": ["have", "will", "do", "would"], "c": [3]}, {"n": 167, "q": "If I had enough free time, I ___ volunteer at an animal shelter.", "o": ["will to", "would to", "would", "had"], "c": [2]}, {"n": 168, "q": "She would buy the recycled notebooks if they ___ less.", "o": ["costing", "costs", "would cost", "cost"], "c": [3]}, {"n": 169, "q": "This suitcase is ___ heavy for me to lift.", "o": ["enough", "few", "many", "too"], "c": [3]}, {"n": 170, "q": "We have two chairs and five guests. We don’t have ___ chairs for everyone.", "o": ["much", "too", "enough", "a little"], "c": [2]}, {"n": 171, "q": "There’s ___ packaging around this small USB stick; all that plastic is wasteful.", "o": ["a few", "too many", "many", "too much"], "c": [3]}, {"n": 172, "q": "There are ___ cars in this street for delivery lorries to park.", "o": ["too much", "much", "too many", "a little"], "c": [2]}, {"n": 173, "q": "The new shelving isn’t ___ for our books.", "o": ["enough strong", "strong enough", "too enough", "strong too"], "c": [1]}, {"n": 174, "q": "I want to make a ___ because my new headphones don’t work.", "o": ["complain", "complaint", "complaining", "complained"], "c": [1]}, {"n": 175, "q": "She didn’t stop studying despite the noise. She ___ until she completed every task.", "o": ["carried on", "took after", "put off", "gave back"], "c": [0]}, {"n": 176, "q": "This shirt is too small. Could I ___ it for a larger size, please?", "o": ["describe", "exchange", "graduate", "discover"], "c": [1]}, {"n": 177, "q": "A person ___ designs bridges is an engineer.", "o": ["where", "when", "which", "who"], "c": [3]}, {"n": 178, "q": "This is the app ___ helps my mother translate English messages.", "o": ["who", "which", "where", "when"], "c": [1]}, {"n": 179, "q": "The room ___ we test new devices is on the second floor.", "o": ["when", "who", "where", "which"], "c": [2]}, {"n": 180, "q": "The camera ___ I ordered online has just arrived.", "o": ["that", "who", "where", "when"], "c": [0]}, {"n": 181, "q": "I need a device ___ can measure the temperature of water.", "o": ["who", "that", "when", "where"], "c": [1]}, {"n": 182, "q": "Choose the correct indefinite article: “Mina is ___ engineer.”", "o": ["a", "no article", "an", "the"], "c": [2]}, {"n": 183, "q": "I bought a tablet yesterday. ___ tablet came with a free keyboard.", "o": ["No article", "An", "A", "The"], "c": [3]}, {"n": 184, "q": "She speaks ___ French fluently.", "o": ["a", "no article", "the", "an"], "c": [1]}, {"n": 185, "q": "The ___ in the kitchen mixes and chops food.", "o": ["food processor", "digital camera", "traffic light", "security guard"], "c": [0]}, {"n": 186, "q": "It wasn’t planned. We met ___ chance at a university event.", "o": ["on", "at", "in", "by"], "c": [3]}, {"n": 187, "q": "She was testing some old chemicals when she ___ something new.", "o": ["complained", "discovered", "borrowed", "invited"], "c": [1]}, {"n": 188, "q": "Take the lift to the third ___; the science exhibition is there.", "o": ["door", "floor", "ceiling", "wall"], "c": [1]}, {"n": 189, "q": "By the time our teacher arrived, we ___ already finished the group activity.", "o": ["have", "had", "are", "were"], "c": [1]}, {"n": 190, "q": "Sara couldn’t open her flat because she had ___ her keys at the office.", "o": ["left", "leaving", "leave", "leaves"], "c": [0]}, {"n": 191, "q": "We ___ never seen a white fox before we visited the wildlife park.", "o": ["had", "have", "are", "do"], "c": [0]}, {"n": 192, "q": "After we had ___ the dog, we cleaned its bowl.", "o": ["feed", "fed", "feeding", "feeds"], "c": [1]}, {"n": 193, "q": "“I am afraid of snakes,” Dilshod said. Dilshod said that he ___ afraid of snakes.", "o": ["was", "is", "be", "has"], "c": [0]}, {"n": 194, "q": "“I will take the dog for a walk,” Lola said. Lola said she ___ take the dog for a walk.", "o": ["would", "did", "will", "has"], "c": [0]}, {"n": 195, "q": "“We saw the fox,” the girls said. The girls said they ___ the fox.", "o": ["saw", "see", "had seen", "have seen"], "c": [2]}, {"n": 196, "q": "Kamola ___ me that her grandparents lived in Bukhara.", "o": ["spoke", "talked", "told", "said"], "c": [2]}, {"n": 197, "q": "Aziza always finishes work on time and does what she promises. She is very ___.", "o": ["lazy", "careless", "reliable", "rude"], "c": [2]}, {"n": 198, "q": "Although he knew he was wrong, he refused to change his view. He was being ___.", "o": ["polite", "shy", "generous", "stubborn"], "c": [3]}, {"n": 199, "q": "Two brothers born on the same day to the same mother are ___.", "o": ["uncles", "twins", "neighbours", "cousins"], "c": [1]}, {"n": 200, "q": "Choose an expression of agreement: “___. Pets need proper care.”", "o": ["I don’t agree", "I think you’re wrong", "I agree", "I’m not convinced"], "c": [2]}]</script>
 <script>
-const BANK=[{"n": 1, "q": "Where ___ your sister work?", "o": {"A": "does", "B": "do", "C": "is", "D": "are"}, "a": "A"}, {"n": 2, "q": "___ your friend from Canada?", "o": {"A": "Do", "B": "Does", "C": "Are", "D": "Is"}, "a": "D"}, {"n": 3, "q": "How many films ___ you see last year?", "o": {"A": "does", "B": "are", "C": "did", "D": "do"}, "a": "C"}, {"n": 4, "q": "Why ___ he move to London?", "o": {"A": "has", "B": "did", "C": "does", "D": "is"}, "a": "B"}, {"n": 5, "q": "What ___ your new classmate like?", "o": {"A": "is", "B": "do", "C": "does", "D": "are"}, "a": "A"}, {"n": 6, "q": "___ you often visit your cousins?", "o": {"A": "Does", "B": "Are", "C": "Is", "D": "Do"}, "a": "D"}, {"n": 7, "q": "Who ___ your English teacher?", "o": {"A": "does", "B": "are", "C": "is", "D": "do"}, "a": "C"}, {"n": 8, "q": "What time ___ the next bus leave?", "o": {"A": "are", "B": "does", "C": "do", "D": "is"}, "a": "B"}, {"n": 9, "q": "How much ___ these tickets cost?", "o": {"A": "do", "B": "does", "C": "is", "D": "has"}, "a": "A"}, {"n": 10, "q": "Where ___ you go on holiday last summer?", "o": {"A": "do", "B": "are", "C": "have", "D": "did"}, "a": "D"}, {"n": 11, "q": "Maya usually ___ magazines after class.", "o": {"A": "read", "B": "reading", "C": "reads", "D": "is reading"}, "a": "C"}, {"n": 12, "q": "Look! The children ___ football outside.", "o": {"A": "played", "B": "are playing", "C": "play", "D": "plays"}, "a": "B"}, {"n": 13, "q": "My father ___ in an office.", "o": {"A": "works", "B": "work", "C": "is work", "D": "working"}, "a": "A"}, {"n": 14, "q": "We ___ for the train right now.", "o": {"A": "wait", "B": "waits", "C": "waited", "D": "are waiting"}, "a": "D"}, {"n": 15, "q": "He ___ to the gym every Friday.", "o": {"A": "is go", "B": "going", "C": "goes", "D": "go"}, "a": "C"}, {"n": 16, "q": "Listen! Someone ___ at the door.", "o": {"A": "knocked", "B": "is knocking", "C": "knocks", "D": "knock"}, "a": "B"}, {"n": 17, "q": "I ___ my homework at the moment.", "o": {"A": "am doing", "B": "do", "C": "does", "D": "did"}, "a": "A"}, {"n": 18, "q": "She ___ social media every day.", "o": {"A": "use", "B": "is use", "C": "using", "D": "uses"}, "a": "D"}, {"n": 19, "q": "They ___ dinner now.", "o": {"A": "has", "B": "had", "C": "are having", "D": "have"}, "a": "C"}, {"n": 20, "q": "My brother ___ French at university this term.", "o": {"A": "studied", "B": "is studying", "C": "study", "D": "studies"}, "a": "B"}, {"n": 21, "q": "Yesterday, we ___ the museum.", "o": {"A": "visited", "B": "visit", "C": "visits", "D": "visiting"}, "a": "A"}, {"n": 22, "q": "The train ___ late last night.", "o": {"A": "arrive", "B": "arrives", "C": "arriving", "D": "arrived"}, "a": "D"}, {"n": 23, "q": "I ___ a message from my sister yesterday.", "o": {"A": "gets", "B": "getting", "C": "got", "D": "get"}, "a": "C"}, {"n": 24, "q": "She ___ a ticket online last week.", "o": {"A": "buying", "B": "bought", "C": "buy", "D": "buys"}, "a": "B"}, {"n": 25, "q": "They ___ in a small hotel during the trip.", "o": {"A": "stayed", "B": "stay", "C": "stays", "D": "staying"}, "a": "A"}, {"n": 26, "q": "We ___ to Scotland last winter.", "o": {"A": "go", "B": "goes", "C": "going", "D": "went"}, "a": "D"}, {"n": 27, "q": "He ___ his suitcase before breakfast.", "o": {"A": "pack", "B": "packing", "C": "packed", "D": "packs"}, "a": "C"}, {"n": 28, "q": "I ___ the new film on Saturday.", "o": {"A": "watching", "B": "watched", "C": "watch", "D": "watches"}, "a": "B"}, {"n": 29, "q": "Our plane ___ at nine o’clock.", "o": {"A": "left", "B": "leave", "C": "leaves", "D": "leaving"}, "a": "A"}, {"n": 30, "q": "Did you ___ your passport?", "o": {"A": "brought", "B": "brings", "C": "bringing", "D": "bring"}, "a": "D"}, {"n": 31, "q": "At eight o’clock, I ___ for the bus.", "o": {"A": "wait", "B": "am waiting", "C": "was waiting", "D": "waited"}, "a": "C"}, {"n": 32, "q": "They ___ TV when I called.", "o": {"A": "are watching", "B": "were watching", "C": "watched", "D": "watch"}, "a": "B"}, {"n": 33, "q": "She ___ her car when it started to rain.", "o": {"A": "was driving", "B": "drove", "C": "drives", "D": "drive"}, "a": "A"}, {"n": 34, "q": "We ___ dinner at seven yesterday.", "o": {"A": "have", "B": "had", "C": "are having", "D": "were having"}, "a": "D"}, {"n": 35, "q": "What ___ you doing when the train arrived?", "o": {"A": "did", "B": "are", "C": "were", "D": "was"}, "a": "C"}, {"n": 36, "q": "My uncle ___ at the airport when we got there.", "o": {"A": "is waiting", "B": "was waiting", "C": "wait", "D": "waits"}, "a": "B"}, {"n": 37, "q": "The tourists ___ photos in the city centre.", "o": {"A": "were taking", "B": "take", "C": "takes", "D": "are take"}, "a": "A"}, {"n": 38, "q": "He ___ his phone when he lost his bag.", "o": {"A": "uses", "B": "use", "C": "is using", "D": "was using"}, "a": "D"}, {"n": 39, "q": "I ___ a book while my sister was sleeping.", "o": {"A": "reads", "B": "am reading", "C": "was reading", "D": "read"}, "a": "C"}, {"n": 40, "q": "It ___ when we left the hotel.", "o": {"A": "is snowing", "B": "was snowing", "C": "snows", "D": "snow"}, "a": "B"}, {"n": 41, "q": "I ___ never been to Paris.", "o": {"A": "have", "B": "has", "C": "am", "D": "did"}, "a": "A"}, {"n": 42, "q": "She ___ already finished her homework.", "o": {"A": "have", "B": "is", "C": "did", "D": "has"}, "a": "D"}, {"n": 43, "q": "Have you ___ your friends this week?", "o": {"A": "see", "B": "seeing", "C": "seen", "D": "saw"}, "a": "C"}, {"n": 44, "q": "We haven’t bought the tickets ___.", "o": {"A": "last", "B": "yet", "C": "already", "D": "yesterday"}, "a": "B"}, {"n": 45, "q": "He has ___ donated money to charity.", "o": {"A": "already", "B": "yesterday", "C": "last", "D": "ago"}, "a": "A"}, {"n": 46, "q": "___ they ever visited Berlin?", "o": {"A": "Has", "B": "Did", "C": "Are", "D": "Have"}, "a": "D"}, {"n": 47, "q": "My sister has ___ a new laptop.", "o": {"A": "buying", "B": "buys", "C": "bought", "D": "buy"}, "a": "C"}, {"n": 48, "q": "I ___ not tried that restaurant yet.", "o": {"A": "did", "B": "have", "C": "has", "D": "am"}, "a": "B"}, {"n": 49, "q": "Has she ___ her grandparents today?", "o": {"A": "called", "B": "call", "C": "calls", "D": "calling"}, "a": "A"}, {"n": 50, "q": "They have ___ some money for their trip.", "o": {"A": "save", "B": "saves", "C": "saving", "D": "saved"}, "a": "D"}, {"n": 51, "q": "Dilnoza has bought eggs and flour. She ___ a cake for tomorrow’s celebration.", "o": {"A": "going to bake", "B": "is going bake", "C": "is going to bake", "D": "are going to bake"}, "a": "C"}, {"n": 52, "q": "We ___ our cousins this Friday; the tickets are already booked.", "o": {"A": "are visiting", "B": "is visit", "C": "visiting", "D": "visits"}, "a": "A"}, {"n": 53, "q": "___ you going to invite your classmates to the wedding?", "o": {"A": "Are", "B": "Have", "C": "Does", "D": "Do"}, "a": "A"}, {"n": 54, "q": "I ___ to wear my new jacket at the party.", "o": {"A": "is going", "B": "am go", "C": "going", "D": "am going"}, "a": "D"}, {"n": 55, "q": "“These bags are heavy.” “Don’t worry. I ___ you carry them.”", "o": {"A": "will help", "B": "to help", "C": "will helping", "D": "helped"}, "a": "A"}, {"n": 56, "q": "I don’t think the café ___ open before nine tomorrow.", "o": {"A": "will being", "B": "will be", "C": "will is", "D": "was being"}, "a": "B"}, {"n": 57, "q": "Make a suggestion: “___ we go to the food festival on Sunday?”", "o": {"A": "Have", "B": "Are", "C": "Does", "D": "Shall"}, "a": "D"}, {"n": 58, "q": "“Are you free on Saturday?” “Sorry, I ___. I’ve already got plans.”", "o": {"A": "isn’t", "B": "am not", "C": "aren’t", "D": "doesn’t"}, "a": "B"}, {"n": 59, "q": "That blue shirt really ___ you.", "o": {"A": "suits", "B": "suiting", "C": "suit", "D": "is suit"}, "a": "A"}, {"n": 60, "q": "Dad put on a jacket and matching trousers. He was wearing a ___.", "o": {"A": "glove", "B": "suit", "C": "scarf", "D": "cap"}, "a": "B"}, {"n": 61, "q": "She kept her hands warm with a pair of ___.", "o": {"A": "boots", "B": "belts", "C": "ties", "D": "gloves"}, "a": "D"}, {"n": 62, "q": "The concert hall was ___; it was full of people and there were no seats left.", "o": {"A": "peaceful", "B": "empty", "C": "quiet", "D": "crowded"}, "a": "D"}, {"n": 63, "q": "A calm place with very little noise is ___.", "o": {"A": "crowded", "B": "dirty", "C": "expensive", "D": "peaceful"}, "a": "D"}, {"n": 64, "q": "I need someone to take care of my little brother. Could you ___ him while I’m out?", "o": {"A": "look for", "B": "look after", "C": "look at", "D": "look like"}, "a": "B"}, {"n": 65, "q": "I’ve lost one glove. I’m ___ it.", "o": {"A": "looking after", "B": "looking like", "C": "looking up", "D": "looking for"}, "a": "D"}, {"n": 66, "q": "You really ___ your mother; you have the same eyes and face.", "o": {"A": "look for", "B": "look after", "C": "look like", "D": "look up"}, "a": "C"}, {"n": 67, "q": "You must work during your friend’s party. Reply politely: “Thank you for inviting - me, but ___.”", "o": {"A": "I’m afraid I can’t come", "B": "this is my ticket", "C": "it was nice to meet you", "D": "it costs twenty pounds"}, "a": "A"}, {"n": 68, "q": "He ___ to open the shop at eight every morning.", "o": {"A": "must", "B": "have", "C": "has", "D": "can"}, "a": "C"}, {"n": 69, "q": "Company rules say staff ___ wear trainers in the laboratory. It is forbidden.", "o": {"A": "don’t have to", "B": "mustn’t", "C": "might", "D": "should"}, "a": "B"}, {"n": 70, "q": "It’s optional, so you ___ come in on Saturday.", "o": {"A": "are not allowed to", "B": "must", "C": "don’t have to", "D": "mustn’t"}, "a": "C"}, {"n": 71, "q": "“___ you have to work late today?” “Yes, I do.”", "o": {"A": "Does", "B": "Have", "C": "Are", "D": "Do"}, "a": "D"}, {"n": 72, "q": "Did the new employee ___ attend a training course?", "o": {"A": "have to", "B": "has to", "C": "had to", "D": "having to"}, "a": "A"}, {"n": 73, "q": "You can ___ a short break after finishing the task.", "o": {"A": "to take", "B": "taking", "C": "takes", "D": "take"}, "a": "D"}, {"n": 74, "q": "The company ___ probably open a second office next year.", "o": {"A": "would to", "B": "will", "C": "is", "D": "might to"}, "a": "B"}, {"n": 75, "q": "I’m not certain, but the manager ___ offer me a permanent job.", "o": {"A": "mights", "B": "is might", "C": "might to", "D": "might"}, "a": "D"}, {"n": 76, "q": "She ___ get the job because she has all the right qualifications.", "o": {"A": "probably will to", "B": "will probably", "C": "will probable", "D": "will probably to"}, "a": "B"}, {"n": 77, "q": "At the ___, the manager asked me why I wanted the job.", "o": {"A": "contract", "B": "interview", "C": "salary", "D": "shift"}, "a": "B"}, {"n": 78, "q": "A person who works for a company is an ___.", "o": {"A": "customer", "B": "passenger", "C": "employee", "D": "employer"}, "a": "C"}, {"n": 79, "q": "My brother has a full-time ___ in a bookshop.", "o": {"A": "work", "B": "cargo", "C": "job", "D": "employment"}, "a": "C"}, {"n": 80, "q": "I have a lot of ___ to finish before I leave the office.", "o": {"A": "interview", "B": "career", "C": "job", "D": "work"}, "a": "D"}, {"n": 81, "q": "All applicants must send their ___, which lists their education and work experience.", "o": {"A": "wages", "B": "prescription", "C": "receipt", "D": "CV"}, "a": "D"}, {"n": 82, "q": "She’s looking ___ a new job with regular working hours.", "o": {"A": "for", "B": "of", "C": "from", "D": "to"}, "a": "A"}, {"n": 83, "q": "When I’m on the night ___, I start work at ten p.m.", "o": {"A": "salary", "B": "interview", "C": "application", "D": "shift"}, "a": "D"}, {"n": 84, "q": "Would you like me ___ the files for you?", "o": {"A": "organise", "B": "to organise", "C": "organised", "D": "organising"}, "a": "B"}, {"n": 85, "q": "If you’re worried about your exam, you should ___ to your teacher.", "o": {"A": "speak", "B": "speaks", "C": "speaking", "D": "to speak"}, "a": "A"}, {"n": 86, "q": "You look tired. You ___ stay up late again tonight.", "o": {"A": "should to", "B": "shouldn’t", "C": "shouldn’t to", "D": "don’t should"}, "a": "B"}, {"n": 87, "q": "___ put hot drinks near your laptop.", "o": {"A": "Don’t", "B": "Not", "C": "Doesn’t", "D": "No"}, "a": "A"}, {"n": 88, "q": "Please ___ your password in a safe place.", "o": {"A": "keeping", "B": "keeps", "C": "keep", "D": "kept"}, "a": "C"}, {"n": 89, "q": "I went to the supermarket ___ some water before the journey.", "o": {"A": "to buy", "B": "for buy", "C": "to buying", "D": "buys"}, "a": "A"}, {"n": 90, "q": "It was difficult ___ the path in the dark.", "o": {"A": "sees", "B": "to seeing", "C": "to seen", "D": "to see"}, "a": "D"}, {"n": 91, "q": "We were pleased ___ that nobody was hurt.", "o": {"A": "to hearing", "B": "heard", "C": "to hear", "D": "hear"}, "a": "C"}, {"n": 92, "q": "It depends ___ the weather whether we go camping.", "o": {"A": "to", "B": "on", "C": "at", "D": "for"}, "a": "B"}, {"n": 93, "q": "He worries ___ making mistakes when he speaks English.", "o": {"A": "about", "B": "of", "C": "from", "D": "on"}, "a": "A"}, {"n": 94, "q": "I apologised ___ my teacher for arriving late.", "o": {"A": "at", "B": "from", "C": "to", "D": "of"}, "a": "C"}, {"n": 95, "q": "The guided walk was very ___. I learnt something new at every stop.", "o": {"A": "interests", "B": "interested", "C": "interesting", "D": "interest"}, "a": "C"}, {"n": 96, "q": "We were ___ by the loud noise outside the tent.", "o": {"A": "frightened", "B": "frightening", "C": "frighten", "D": "frightens"}, "a": "A"}, {"n": 97, "q": "I felt ___ during the long delay because there was nothing to do.", "o": {"A": "bores", "B": "boring", "C": "bored", "D": "bore"}, "a": "C"}, {"n": 98, "q": "The view from the mountain was ___; we could see three valleys.", "o": {"A": "amazes", "B": "amazement", "C": "amazing", "D": "amazed"}, "a": "C"}, {"n": 99, "q": "What do you think I ___ do about my roommate’s late-night music?", "o": {"A": "am", "B": "should", "C": "should to", "D": "have"}, "a": "B"}, {"n": 100, "q": "Listen ___ your friend’s advice before you decide.", "o": {"A": "to", "B": "from", "C": "on", "D": "of"}, "a": "A"}, {"n": 101, "q": "My grandfather says life ___ in the past than it is today.", "o": {"A": "was simple", "B": "was simpler", "C": "is simplest", "D": "simpler"}, "a": "B"}, {"n": 102, "q": "This is ___ achievement I have ever heard about.", "o": {"A": "more impressive", "B": "most impressive", "C": "the most impressive", "D": "the more impressive"}, "a": "C"}, {"n": 103, "q": "People ___ travel abroad as often as they do now.", "o": {"A": "didn’t use to", "B": "weren’t use to", "C": "didn’t used to", "D": "don’t used to"}, "a": "A"}, {"n": 104, "q": "My sister is much ___ at dealing with stress than I am.", "o": {"A": "good", "B": "better", "C": "best", "D": "the better"}, "a": "B"}, {"n": 105, "q": "Which of these activities is ___ for your heart?", "o": {"A": "healthy", "B": "healthier", "C": "the healthiest", "D": "most healthy"}, "a": "C"}, {"n": 106, "q": "I ___ have so much free time when I was at school.", "o": {"A": "didn’t used to", "B": "wasn’t use to", "C": "didn’t use to", "D": "don’t use to"}, "a": "C"}, {"n": 107, "q": "The older I get, ___ I become about my health.", "o": {"A": "careful", "B": "the more careful", "C": "more careful", "D": "the most careful"}, "a": "B"}, {"n": 108, "q": "That was one of ___ days of my life.", "o": {"A": "exciting", "B": "more exciting", "C": "the most exciting", "D": "the more exciting"}, "a": "C"}, {"n": 109, "q": "Did your family ___ live in the countryside?", "o": {"A": "used to", "B": "use to", "C": "using to", "D": "uses to"}, "a": "B"}, {"n": 110, "q": "This exercise is not as ___ as the one we did yesterday.", "o": {"A": "difficult", "B": "more difficult", "C": "most difficult", "D": "the difficult"}, "a": "A"}, {"n": 111, "q": "If you have a high temperature, you may have a ___.", "o": {"A": "headache", "B": "fever", "C": "bruise", "D": "cut"}, "a": "B"}, {"n": 112, "q": "I’ve got a terrible ___, so it hurts when I swallow.", "o": {"A": "sore throat", "B": "broken arm", "C": "rash", "D": "ankle"}, "a": "A"}, {"n": 113, "q": "You should ___ regularly if you want to improve your fitness.", "o": {"A": "take exercise", "B": "make exercise", "C": "do a medicine", "D": "catch a diet"}, "a": "A"}, {"n": 114, "q": "The doctor gave me a ___ for some antibiotics.", "o": {"A": "receipt", "B": "prescription", "C": "review", "D": "treatment"}, "a": "B"}, {"n": 115, "q": "He twisted his ___ while playing basketball and now he can’t walk comfortably.", "o": {"A": "wrist", "B": "ankle", "C": "throat", "D": "chest"}, "a": "B"}, {"n": 116, "q": "You should get more sleep and eat a balanced diet to improve your ___.", "o": {"A": "lifestyle", "B": "symptom", "C": "injury", "D": "medicine"}, "a": "A"}, {"n": 117, "q": "The nurse told me to take two ___ of this medicine a day.", "o": {"A": "doses", "B": "pains", "C": "aches", "D": "symptoms"}, "a": "A"}, {"n": 118, "q": "If you have a bad cough, you should make an appointment with your ___.", "o": {"A": "coach", "B": "dentist", "C": "GP", "D": "pharmacist’s shop"}, "a": "C"}, {"n": 119, "q": "After the operation, she needed several weeks to ___ completely.", "o": {"A": "recover", "B": "injure", "C": "ache", "D": "treat"}, "a": "A"}, {"n": 120, "q": "I’ve been sitting at my desk all day, so I need to ___ and stretch my legs.", "o": {"A": "get a prescription", "B": "take a break", "C": "catch a cold", "D": "have a symptom"}, "a": "B"}, {"n": 121, "q": "The stadium ___ in 2018.", "o": {"A": "built", "B": "was built", "C": "is build", "D": "was building"}, "a": "B"}, {"n": 122, "q": "English ___ in many countries around the world.", "o": {"A": "speaks", "B": "is spoken", "C": "spoke", "D": "is speaking"}, "a": "B"}, {"n": 123, "q": "The paintings ___ by a local artist last year.", "o": {"A": "were created", "B": "created", "C": "are create", "D": "was created"}, "a": "A"}, {"n": 124, "q": "This sports centre ___ every day at 6 a.m.", "o": {"A": "opens", "B": "is opened", "C": "opened by", "D": "is opening"}, "a": "A"}, {"n": 125, "q": "The book ___ into several languages in the twentieth century.", "o": {"A": "translated", "B": "was translated", "C": "is translate", "D": "has translating"}, "a": "B"}, {"n": 126, "q": "I’ve played volleyball ___ I was twelve.", "o": {"A": "for", "B": "since", "C": "during", "D": "from"}, "a": "B"}, {"n": 127, "q": "We’ve lived in this neighbourhood ___ nearly five years.", "o": {"A": "since", "B": "for", "C": "during", "D": "ago"}, "a": "B"}, {"n": 128, "q": "How long ___ your brother been interested in photography?", "o": {"A": "did", "B": "is", "C": "has", "D": "have"}, "a": "C"}, {"n": 129, "q": "The match ___ because of the heavy rain yesterday.", "o": {"A": "was cancelled", "B": "cancelled", "C": "is cancel", "D": "was cancelling"}, "a": "A"}, {"n": 130, "q": "She has worked as a doctor ___ 2021.", "o": {"A": "for", "B": "since", "C": "from", "D": "during"}, "a": "B"}, {"n": 131, "q": "If it ___ tomorrow, we’ll play tennis indoors.", "o": {"A": "will rain", "B": "rains", "C": "rained", "D": "raining"}, "a": "B"}, {"n": 132, "q": "If you don’t hurry, you ___ the beginning of the film.", "o": {"A": "miss", "B": "missed", "C": "will miss", "D": "would miss"}, "a": "C"}, {"n": 133, "q": "I hope ___ a scholarship to study abroad.", "o": {"A": "getting", "B": "get", "C": "to get", "D": "got"}, "a": "C"}, {"n": 134, "q": "He enjoys ___ documentaries about famous people.", "o": {"A": "watch", "B": "watching", "C": "to watching", "D": "watched"}, "a": "B"}, {"n": 135, "q": "If she passes the exam, she ___ apply for the course.", "o": {"A": "can", "B": "would", "C": "did", "D": "has"}, "a": "A"}, {"n": 136, "q": "They decided ___ a degree in sports science.", "o": {"A": "studying", "B": "study", "C": "to study", "D": "studied"}, "a": "C"}, {"n": 137, "q": "I can’t stand ___ in long queues.", "o": {"A": "wait", "B": "to waiting", "C": "waiting", "D": "waited"}, "a": "C"}, {"n": 138, "q": "If you ___ regularly, you’ll feel healthier.", "o": {"A": "exercise", "B": "will exercise", "C": "exercised", "D": "exercising"}, "a": "A"}, {"n": 139, "q": "She promised ___ me when she arrived at the university.", "o": {"A": "calling", "B": "call", "C": "to call", "D": "called"}, "a": "C"}, {"n": 140, "q": "We’re looking forward to ___ our new classmates.", "o": {"A": "meet", "B": "meeting", "C": "to meet", "D": "met"}, "a": "B"}, {"n": 141, "q": "A person who studies law at university is studying for a ___ degree.", "o": {"A": "medical", "B": "law", "C": "engineering", "D": "art"}, "a": "B"}, {"n": 142, "q": "She worked hard and finally ___ her goal of becoming a pilot.", "o": {"A": "achieved", "B": "passed", "C": "attended", "D": "applied"}, "a": "A"}, {"n": 143, "q": "You need to ___ an application before the deadline.", "o": {"A": "do", "B": "make", "C": "put", "D": "take"}, "a": "B"}, {"n": 144, "q": "I can’t go out tonight; I have to ___ my assignment until tomorrow.", "o": {"A": "put off", "B": "put up", "C": "put on", "D": "put away"}, "a": "A"}, {"n": 145, "q": "The university has decided to ___ the meeting until next week.", "o": {"A": "put out", "B": "put off", "C": "put up", "D": "put down"}, "a": "B"}, {"n": 146, "q": "Please ___ your hand if you know the answer.", "o": {"A": "put up", "B": "put off", "C": "put out", "D": "put away"}, "a": "A"}, {"n": 147, "q": "He ___ a lot of weight after he started exercising and eating better.", "o": {"A": "put off", "B": "put on", "C": "put up", "D": "put out"}, "a": "B"}, {"n": 148, "q": "I’m going to ___ my name for the photography competition.", "o": {"A": "put forward", "B": "put off", "C": "put away", "D": "put down"}, "a": "D"}, {"n": 149, "q": "She wants to study medicine, so she’s applying for a ___ at university.", "o": {"A": "subject", "B": "degree", "C": "symptom", "D": "treatment"}, "a": "B"}, {"n": 150, "q": "The fire service arrived quickly and ___ the fire.", "o": {"A": "put away", "B": "put up", "C": "put out", "D": "put on"}, "a": "C"}, {"n": 151, "q": "If Rano ___ the course, she’ll get a certificate.", "o": {"A": "completing", "B": "completed", "C": "will complete", "D": "completes"}, "a": "D"}, {"n": 152, "q": "Unless you save enough money, you ___ be able to pay the course fees next month.", "o": {"A": "won’t", "B": "haven’t", "C": "didn’t", "D": "doesn’t"}, "a": "A"}, {"n": 153, "q": "If you don’t submit your application on time, the university ___ consider it.", "o": {"A": "didn’t", "B": "hasn’t", "C": "wouldn’t to", "D": "won’t"}, "a": "D"}, {"n": 154, "q": "What will you do if you ___ the final exam?", "o": {"A": "failing", "B": "failed", "C": "will fail", "D": "fail"}, "a": "D"}, {"n": 155, "q": "If Sara gets a scholarship, she ___ be able to study abroad.", "o": {"A": "will", "B": "was", "C": "does", "D": "has"}, "a": "A"}, {"n": 156, "q": "Alisher hopes ___ his own design business after graduation.", "o": {"A": "starting", "B": "to start", "C": "start", "D": "started"}, "a": "B"}, {"n": 157, "q": "My brother avoids ___ late for his university classes.", "o": {"A": "being", "B": "be", "C": "to be", "D": "been"}, "a": "A"}, {"n": 158, "q": "We’re looking forward to ___ our results.", "o": {"A": "to receive", "B": "received", "C": "receiving", "D": "receive"}, "a": "C"}, {"n": 159, "q": "They decided ___ the project before the end of term.", "o": {"A": "finish", "B": "finishing", "C": "to finish", "D": "finished"}, "a": "C"}, {"n": 160, "q": "After four years at university, she ___ with a degree in biology.", "o": {"A": "graduated", "B": "resigned", "C": "retired", "D": "borrowed"}, "a": "A"}, {"n": 161, "q": "We had to ___ our presentation until Friday because the tutor was ill.", "o": {"A": "put away", "B": "put off", "C": "put out", "D": "put on"}, "a": "B"}, {"n": 162, "q": "The new laboratory course will help me ___ my goal of becoming an engineer.", "o": {"A": "pass", "B": "attend", "C": "apply", "D": "achieve"}, "a": "D"}, {"n": 163, "q": "“Can I speak to Bekzod, please?” “___ a moment. I’ll call him.”", "o": {"A": "Look for", "B": "Get on", "C": "Hold on", "D": "Put off"}, "a": "C"}, {"n": 164, "q": "If I ___ a wallet in the street, I would take it to the police.", "o": {"A": "finds", "B": "finding", "C": "found", "D": "to find"}, "a": "C"}, {"n": 165, "q": "If my brother ___ more patient, he would argue less.", "o": {"A": "were", "B": "will be", "C": "is", "D": "has"}, "a": "A"}, {"n": 166, "q": "What ___ you do if a shop gave you too much change?", "o": {"A": "have", "B": "will", "C": "do", "D": "would"}, "a": "D"}, {"n": 167, "q": "If I had enough free time, I ___ volunteer at an animal shelter.", "o": {"A": "will to", "B": "would to", "C": "would", "D": "had"}, "a": "C"}, {"n": 168, "q": "She would buy the recycled notebooks if they ___ less.", "o": {"A": "costing", "B": "costs", "C": "would cost", "D": "cost"}, "a": "D"}, {"n": 169, "q": "This suitcase is ___ heavy for me to lift.", "o": {"A": "enough", "B": "few", "C": "many", "D": "too"}, "a": "D"}, {"n": 170, "q": "We have two chairs and five guests. We don’t have ___ chairs for everyone.", "o": {"A": "much", "B": "too", "C": "enough", "D": "a little"}, "a": "C"}, {"n": 171, "q": "There’s ___ packaging around this small USB stick; all that plastic is wasteful.", "o": {"A": "a few", "B": "too many", "C": "many", "D": "too much"}, "a": "D"}, {"n": 172, "q": "There are ___ cars in this street for delivery lorries to park.", "o": {"A": "too much", "B": "much", "C": "too many", "D": "a little"}, "a": "C"}, {"n": 173, "q": "The new shelving isn’t ___ for our books.", "o": {"A": "enough strong", "B": "strong enough", "C": "too enough", "D": "strong too"}, "a": "B"}, {"n": 174, "q": "I want to make a ___ because my new headphones don’t work.", "o": {"A": "complain", "B": "complaint", "C": "complaining", "D": "complained"}, "a": "B"}, {"n": 175, "q": "She didn’t stop studying despite the noise. She ___ until she completed every task.", "o": {"A": "carried on", "B": "took after", "C": "put off", "D": "gave back"}, "a": "A"}, {"n": 176, "q": "This shirt is too small. Could I ___ it for a larger size, please?", "o": {"A": "describe", "B": "exchange", "C": "graduate", "D": "discover"}, "a": "B"}, {"n": 177, "q": "A person ___ designs bridges is an engineer.", "o": {"A": "where", "B": "when", "C": "which", "D": "who"}, "a": "D"}, {"n": 178, "q": "This is the app ___ helps my mother translate English messages.", "o": {"A": "who", "B": "which", "C": "where", "D": "when"}, "a": "B"}, {"n": 179, "q": "The room ___ we test new devices is on the second floor.", "o": {"A": "when", "B": "who", "C": "where", "D": "which"}, "a": "C"}, {"n": 180, "q": "The camera ___ I ordered online has just arrived.", "o": {"A": "that", "B": "who", "C": "where", "D": "when"}, "a": "A"}, {"n": 181, "q": "I need a device ___ can measure the temperature of water.", "o": {"A": "who", "B": "that", "C": "when", "D": "where"}, "a": "B"}, {"n": 182, "q": "Choose the correct indefinite article: “Mina is ___ engineer.”", "o": {"A": "a", "B": "no article", "C": "an", "D": "the"}, "a": "C"}, {"n": 183, "q": "I bought a tablet yesterday. ___ tablet came with a free keyboard.", "o": {"A": "No article", "B": "An", "C": "A", "D": "The"}, "a": "D"}, {"n": 184, "q": "She speaks ___ French fluently.", "o": {"A": "a", "B": "no article", "C": "the", "D": "an"}, "a": "B"}, {"n": 185, "q": "The ___ in the kitchen mixes and chops food.", "o": {"A": "food processor", "B": "digital camera", "C": "traffic light", "D": "security guard"}, "a": "A"}, {"n": 186, "q": "It wasn’t planned. We met ___ chance at a university event.", "o": {"A": "on", "B": "at", "C": "in", "D": "by"}, "a": "D"}, {"n": 187, "q": "She was testing some old chemicals when she ___ something new.", "o": {"A": "complained", "B": "discovered", "C": "borrowed", "D": "invited"}, "a": "B"}, {"n": 188, "q": "Take the lift to the third ___; the science exhibition is there.", "o": {"A": "door", "B": "floor", "C": "ceiling", "D": "wall"}, "a": "B"}, {"n": 189, "q": "By the time our teacher arrived, we ___ already finished the group activity.", "o": {"A": "have", "B": "had", "C": "are", "D": "were"}, "a": "B"}, {"n": 190, "q": "Sara couldn’t open her flat because she had ___ her keys at the office.", "o": {"A": "left", "B": "leaving", "C": "leave", "D": "leaves"}, "a": "A"}, {"n": 191, "q": "We ___ never seen a white fox before we visited the wildlife park.", "o": {"A": "had", "B": "have", "C": "are", "D": "do"}, "a": "A"}, {"n": 192, "q": "After we had ___ the dog, we cleaned its bowl.", "o": {"A": "feed", "B": "fed", "C": "feeding", "D": "feeds"}, "a": "B"}, {"n": 193, "q": "“I am afraid of snakes,” Dilshod said. Dilshod said that he ___ afraid of snakes.", "o": {"A": "was", "B": "is", "C": "be", "D": "has"}, "a": "A"}, {"n": 194, "q": "“I will take the dog for a walk,” Lola said. Lola said she ___ take the dog for a walk.", "o": {"A": "would", "B": "did", "C": "will", "D": "has"}, "a": "A"}, {"n": 195, "q": "“We saw the fox,” the girls said. The girls said they ___ the fox.", "o": {"A": "saw", "B": "see", "C": "had seen", "D": "have seen"}, "a": "C"}, {"n": 196, "q": "Kamola ___ me that her grandparents lived in Bukhara.", "o": {"A": "spoke", "B": "talked", "C": "told", "D": "said"}, "a": "C"}, {"n": 197, "q": "Aziza always finishes work on time and does what she promises. She is very ___.", "o": {"A": "lazy", "B": "careless", "C": "reliable", "D": "rude"}, "a": "C"}, {"n": 198, "q": "Although he knew he was wrong, he refused to change his view. He was being ___.", "o": {"A": "polite", "B": "shy", "C": "generous", "D": "stubborn"}, "a": "D"}, {"n": 199, "q": "Two brothers born on the same day to the same mother are ___.", "o": {"A": "uncles", "B": "twins", "C": "neighbours", "D": "cousins"}, "a": "B"}, {"n": 200, "q": "Choose an expression of agreement: “___. Pets need proper care.”", "o": {"A": "I don’t agree", "B": "I think you’re wrong", "C": "I agree", "D": "I’m not convinced"}, "a": "C"}];
+const PRISTINE='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+const LET=['A','B','C','D'];
 const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const fmt=s=>esc(s).replace(/___/g,'<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>');
-const L=['A','B','C','D'];
-let set=[],ans=[],i=0,label='',instant=true,filter='all',cur='start',beforeSearch='start';
+const fmt=s=>esc(s).replace(/&lt;u&gt;(.*?)&lt;\/u&gt;/g,'<u>$1</u>').replace(/___/g,'<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>');
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 
-/* Theme and font size */
-$('bTheme').onclick=()=>{const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);store.set('fe-theme',t)};
-const SIZES=[.85,1,1.15,1.3,1.5];let si=Math.max(0,SIZES.indexOf(parseFloat(store.get('fe-fs'))));if(!store.get('fe-fs'))si=1;
+/* ---------- Question bank (original data + local edits) ---------- */
+const RAW=document.getElementById('bankData').textContent;
+const ORIG=JSON.parse(RAW).map(x=>({id:String(x.n),q:x.q,o:x.o.slice(),c:x.c.slice()}));
+const BASE=new Map(ORIG.map(x=>[x.id,x]));
+function sig(s){let h=5381;for(let k=0;k<s.length;k++)h=((h<<5)+h+s.charCodeAt(k))|0;return h+':'+s.length}
+const SIG=sig(RAW);
+let BANK=[];
+function loadBank(){let items=null;try{const r=JSON.parse(store.get('fe-bank')||'null');if(r&&r.sig===SIG&&Array.isArray(r.items)&&r.items.length)items=r.items}catch(e){}
+ BANK=(items||ORIG).map((x,k)=>({id:x.id,n:k+1,q:x.q,o:x.o.slice(),c:x.c.slice()}))}
+const saveBank=()=>store.set('fe-bank',JSON.stringify({sig:SIG,items:BANK.map(({id,q,o,c})=>({id,q,o,c}))}));
+const renum=()=>BANK.forEach((x,k)=>x.n=k+1);
+loadBank();
+
+/* ---------- Translations ---------- */
+const I18N={
+en:{title:'Final Exam',subtitle:'Nutq ko‘nikmalari integratsiyasi · 1st-year final test · {0} questions',
+modeA:'Mode A: Full test',modeAd:'All questions in the original order.',goFull:'Start full test',
+modeB:'Mode B: Custom random test',modeBd:'Pick how many questions you want. They are chosen randomly and shuffled.',range:'questions (1–{0})',goRand:'Start random test',
+instant:'Show correct answer immediately after each question',errCount:'Enter a whole number from 1 to {0}.',
+back:'Back',next:'Next',finish:'Finish',quit:'Quit to menu',quitQ:'Quit this test? Progress will be lost.',pos:'Question {0} / {1}',
+unans:'{0} question(s) unanswered. Finish anyway?',
+yourResult:'Your result',correct:'correct',wrong:'wrong',skipped:'skipped',newTest:'New test',retry:'Retry mistakes',
+fAll:'All',fWrong:'Wrong / skipped',fCorrect:'Correct',saved:'Result saved to your profile history.',
+outOf:'{0} out of {1}',p1:'Excellent!',p2:'Good job!',p3:'Not bad, keep practising.',p4:'Keep practising, you can do it!',
+yourAns:'Your answer',corrAns:'Correct answer',corrAnsP:'Correct answers',skip:'Skipped',nothing:'Nothing to show here.',
+mode_full:'Full test',mode_random:'Random test',mode_retry:'Retry mistakes',
+sPh:'Search in all questions and options',sRes:'{0} result(s)',sNone:'No results',sEmpty:'Nothing found. Try a shorter word.',tNum:'Number',tQ:'Question',tOpt:'Option {0}',
+welcome:'Welcome',editT:'Edit profile',newT:'New profile',setupSub:'Enter your details once. Your results will be saved on this device.',
+fName:'Full name',fGroup:'Academic group',eName:'Enter your full name.',eGroup:'Enter your academic group.',save:'Save and continue',cancel:'Cancel',
+editProfile:'Edit profile',group:'Group: {0}',attempts:'Attempts',average:'Average',best:'Best score',history:'Test history',
+hDate:'Date',hMode:'Mode',hTotal:'Total',hCorrect:'Correct',hWrong:'Wrong',hSkipped:'Skipped',hScore:'Score',noTests:'No completed tests yet.',
+clearH:'Clear history',clearQ:'Clear all test history for this profile?',profiles:'Profiles',addProfile:'Add new profile',active:'Active',sw:'Switch',
+delQ:'Delete profile "{0}" and all of its history?',att1:'{0} attempt',attN:'{0} attempts',
+admTitle:'Admin panel',admSub:'{0} questions · {1} modified · {2} new · {3} deleted',admNote:'Changes are saved on this device only. To update the site for students, download the updated site and use it as index.html.',admBack:'Exit admin',
+addQ:'Add question',dlSite:'Download updated site',expJson:'Export JSON',impJson:'Import JSON',resetAll:'Restore original',resetAllQ:'Discard all edits and restore the original questions?',
+impQ:'Replace all questions with the file contents ({0} questions)?',impErr:'Invalid file format.',
+pinLbl:'PIN',pinEnter:'Enter',pinWrong:'Wrong PIN.',pinPh:'New PIN (4+ characters)',pinSet:'Set PIN',pinOff:'Remove PIN',pinShort:'PIN must be at least 4 characters.',pinSaved:'PIN saved.',pinRemoved:'PIN removed.',
+aSqPh:'Search questions and options to edit',fMod:'Modified',fFlag:'To check',tagMod:'Modified',tagNew:'New',ansLbl:'Answer: {0}',aFlag:'Mark for check',
+editQ:'Edit question {0}',newQ:'New question',lblQ:'Question text',lblOpt:'Option {0}',lblCorr:'Correct',eSave:'Save',eSaveNext:'Save and next',eBack:'Back to list',eDel:'Delete question',eReset:'Restore original',eFlagT:'Mark for check',
+errQ:'Question text cannot be empty.',errOpt:'Fill in all four options.',errCorr:'Select at least one correct answer.',aSaved:'Saved.',aDeleted:'Question deleted.',aRestored:'Original restored.',aImported:'Imported {0} questions.',aAdded:'Question added.',delQ2:'Delete question {0}? This cannot be undone.',
+finishHere:'Finish here',fhQ:'Finish here? Results will be based on the first {0} of {1} questions (up to your last answered question). Unanswered questions in this range count as skipped.',fhNone:'Answer at least one question first.',partialNote:'Finished early: results are based on the first {0} of {1} questions.',partialTag:'partial',stTitle:'Student statistics',stNote:'Shows only attempts stored on this device (browser).',stSummary:'{0} profiles · {1} attempts · average {2}%',stNone:'No student attempts stored on this device yet.',stName:'Student',stGroup:'Group',stAtt:'Attempts',stAvg:'Average',stBest:'Best',stLast:'Last attempt',stExport:'Export statistics',aProfile:'Student profile',aExit:'Exit profile',aSearch:'Search all questions',aFMinus:'Decrease font size',aFPlus:'Increase font size',aTheme:'Toggle theme',aDel:'Delete profile'},
+ru:{title:'Итоговый экзамен',subtitle:'Amaliy rus tili · Практический русский язык · итоговый тест, 1 курс · вопросов: {0}',
+modeA:'Режим A: Полный тест',modeAd:'Все вопросы в исходном порядке.',goFull:'Начать полный тест',
+modeB:'Режим B: Случайный тест',modeBd:'Выберите количество вопросов. Они выбираются случайно и перемешиваются.',range:'вопросов (1–{0})',goRand:'Начать случайный тест',
+instant:'Показывать правильный ответ сразу после каждого вопроса',errCount:'Введите целое число от 1 до {0}.',
+back:'Назад',next:'Далее',finish:'Завершить',quit:'Выйти в меню',quitQ:'Выйти из теста? Прогресс будет потерян.',pos:'Вопрос {0} / {1}',
+unans:'Вопросов без ответа: {0}. Всё равно завершить?',
+yourResult:'Ваш результат',correct:'верно',wrong:'неверно',skipped:'пропущено',newTest:'Новый тест',retry:'Работа над ошибками',
+fAll:'Все',fWrong:'Ошибки и пропуски',fCorrect:'Верные',saved:'Результат сохранён в истории профиля.',
+outOf:'{0} из {1}',p1:'Отлично!',p2:'Хорошо!',p3:'Неплохо, продолжайте практиковаться.',p4:'Продолжайте практиковаться, у вас получится!',
+yourAns:'Ваш ответ',corrAns:'Правильный ответ',corrAnsP:'Правильные ответы',skip:'Пропущено',nothing:'Здесь пока ничего нет.',
+mode_full:'Полный тест',mode_random:'Случайный тест',mode_retry:'Работа над ошибками',
+sPh:'Поиск по всем вопросам и вариантам',sRes:'Найдено: {0}',sNone:'Ничего не найдено',sEmpty:'Ничего не найдено. Попробуйте более короткое слово.',tNum:'Номер',tQ:'Вопрос',tOpt:'Вариант {0}',
+welcome:'Добро пожаловать',editT:'Редактирование профиля',newT:'Новый профиль',setupSub:'Введите данные один раз. Результаты будут сохраняться на этом устройстве.',
+fName:'Фамилия и имя',fGroup:'Учебная группа',eName:'Введите фамилию и имя.',eGroup:'Введите учебную группу.',save:'Сохранить и продолжить',cancel:'Отмена',
+editProfile:'Изменить профиль',group:'Группа: {0}',attempts:'Попытки',average:'Средний балл',best:'Лучший результат',history:'История тестов',
+hDate:'Дата',hMode:'Режим',hTotal:'Всего',hCorrect:'Верно',hWrong:'Неверно',hSkipped:'Пропущено',hScore:'Результат',noTests:'Пройденных тестов пока нет.',
+clearH:'Очистить историю',clearQ:'Очистить всю историю тестов этого профиля?',profiles:'Профили',addProfile:'Добавить профиль',active:'Активный',sw:'Выбрать',
+delQ:'Удалить профиль «{0}» и всю его историю?',att1:'{0} попытка',att2:'{0} попытки',attN:'{0} попыток',
+admTitle:'Панель администратора',admSub:'Вопросов: {0} · изменено: {1} · новых: {2} · удалено: {3}',admNote:'Изменения сохраняются только на этом устройстве. Чтобы обновить сайт для студентов, скачайте обновлённый сайт и используйте его как index.html.',admBack:'Выйти из админки',
+addQ:'Добавить вопрос',dlSite:'Скачать обновлённый сайт',expJson:'Экспорт JSON',impJson:'Импорт JSON',resetAll:'Вернуть исходные',resetAllQ:'Отменить все изменения и вернуть исходные вопросы?',
+impQ:'Заменить все вопросы содержимым файла (вопросов: {0})?',impErr:'Неверный формат файла.',
+pinLbl:'PIN-код',pinEnter:'Войти',pinWrong:'Неверный PIN-код.',pinPh:'Новый PIN-код (от 4 символов)',pinSet:'Задать PIN',pinOff:'Убрать PIN',pinShort:'PIN-код должен содержать не менее 4 символов.',pinSaved:'PIN-код сохранён.',pinRemoved:'PIN-код удалён.',
+aSqPh:'Поиск вопросов и вариантов для правки',fMod:'Изменённые',fFlag:'На проверку',tagMod:'Изменён',tagNew:'Новый',ansLbl:'Ответ: {0}',aFlag:'Отметить для проверки',
+editQ:'Редактирование вопроса {0}',newQ:'Новый вопрос',lblQ:'Текст вопроса',lblOpt:'Вариант {0}',lblCorr:'Верный',eSave:'Сохранить',eSaveNext:'Сохранить и далее',eBack:'К списку',eDel:'Удалить вопрос',eReset:'Вернуть исходный',eFlagT:'Отметить для проверки',
+errQ:'Текст вопроса не может быть пустым.',errOpt:'Заполните все четыре варианта.',errCorr:'Выберите хотя бы один верный ответ.',aSaved:'Сохранено.',aDeleted:'Вопрос удалён.',aRestored:'Исходный вариант восстановлен.',aImported:'Импортировано вопросов: {0}.',aAdded:'Вопрос добавлен.',delQ2:'Удалить вопрос {0}? Это действие нельзя отменить.',
+aProfile:'Профиль студента',aExit:'Выйти из профиля',aSearch:'Поиск по вопросам',aFMinus:'Уменьшить шрифт',aFPlus:'Увеличить шрифт',aTheme:'Сменить тему',aDel:'Удалить профиль'}
+};
+let lang='en';
+const t=(k,...a)=>(I18N[lang][k]||I18N.en[k]||k).replace(/\{(\d)\}/g,(m,i)=>a[i]);
+function plAttempts(n){if(lang==='en')return t(n===1?'att1':'attN',n);const m10=n%10,m100=n%100;return t(m10===1&&m100!==11?'att1':(m10>=2&&m10<=4&&(m100<12||m100>14))?'att2':'attN',n)}
+
+/* ---------- State ---------- */
+let set=[],ans=[],i=0,label='full',instant=true,filter='all',cur='start',beforeSearch='start',beforeProfile='start',lastRes=null;
+const isOk=(x,a)=>a!==null&&x.c.includes(a);
+
+/* ---------- Theme and font ---------- */
+$('bTheme').onclick=()=>{const v=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',v);store.set('fe-theme',v)};
+const SIZES=[.85,1,1.15,1.3,1.5];let si=SIZES.indexOf(parseFloat(store.get('fe-fs')));if(si<0)si=1;
 function applyFs(){document.documentElement.style.setProperty('--fs',SIZES[si]);$('fMinus').disabled=si===0;$('fPlus').disabled=si===SIZES.length-1;store.set('fe-fs',SIZES[si])}
 $('fMinus').onclick=()=>{if(si>0){si--;applyFs()}};$('fPlus').onclick=()=>{if(si<SIZES.length-1){si++;applyFs()}};applyFs();
 
-$('total').textContent=BANK.length;document.querySelectorAll('.max').forEach(e=>e.textContent=BANK.length);
-$('cnt').max=BANK.length;
-[10,20,30,50,100].filter(n=>n<=BANK.length).forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>$('cnt').value=n;$('chips').appendChild(b)});
+/* ---------- Navigation ---------- */
 const show=id=>{if(!me()&&id!=='setup'){openSetup(null);return}
- ['start','quiz','result','search','setup','profile'].forEach(s=>$(s).hidden=s!==id);cur=id;
- $('bSearch').classList.toggle('on',id==='search');$('bProfile').classList.toggle('on',id==='profile');$('bProfile').setAttribute('aria-label',id==='profile'?'Exit profile':'Student profile');
- const lock=id==='quiz'||id==='setup';$('bSearch').hidden=lock;$('bProfile').hidden=lock;
- if(id==='start')updateWho();if(id==='profile')renderProfile()};
+ ['start','quiz','result','search','setup','profile','admin','aedit'].forEach(s=>$(s).hidden=s!==id);cur=id;
+ $('bSearch').classList.toggle('on',id==='search');$('bProfile').classList.toggle('on',id==='profile');
+ $('bProfile').setAttribute('aria-label',t(id==='profile'?'aExit':'aProfile'));
+ const lock=id==='quiz'||id==='setup'||id==='admin'||id==='aedit';$('bSearch').hidden=lock;$('bProfile').hidden=lock;
+ if(id==='start')updateWho();if(id==='profile')renderProfile();if(id==='admin')renderAdmin()};
 function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
 
-/* Quiz */
-function begin(list,name){set=list.map(x=>({...x,ord:shuffle(L)}));ans=new Array(set.length).fill(null);i=0;label=name;instant=$('instant').checked;show('quiz');
- $('dots').innerHTML='';set.forEach((_,k)=>{const d=document.createElement('button');d.className='dot';d.textContent=k+1;d.onclick=()=>{i=k;render()};$('dots').appendChild(d)});render();window.scrollTo(0,0)}
-$('goFull').onclick=()=>begin(BANK.slice(),'Full test');
+/* ---------- Language ---------- */
+function applyLang(){
+ document.documentElement.lang=lang;document.title=t('title');$('lgTxt').textContent=lang.toUpperCase();
+ document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+ document.querySelectorAll('[data-ph]').forEach(e=>e.placeholder=t(e.dataset.ph));
+ document.querySelectorAll('[data-al]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.al)));
+ $('bLang').setAttribute('aria-label',lang==='ru'?'Language: Русский':'Language: English');
+ buildStart();
+ $('bProfile').setAttribute('aria-label',t(cur==='profile'?'aExit':'aProfile'));
+ if(cur==='start')updateWho();
+ if(cur==='quiz')render();
+ if(cur==='result'){resultText();review()}
+ if(cur==='profile')renderProfile();
+ if(cur==='search')runSearch();
+ if(cur==='setup')setupTexts();
+ if(cur==='admin')renderAdmin();
+ if(cur==='aedit')editTexts();
+}
+$('bLang').onclick=()=>{lang=lang==='ru'?'en':'ru';store.set('fe-lang',lang);applyLang()};
+
+/* ---------- Start screen ---------- */
+function buildStart(){$('cnt').max=BANK.length;$('chips').innerHTML='';
+ [10,20,30,50,100].filter(n=>n<=BANK.length).forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>$('cnt').value=n;$('chips').appendChild(b)});
+ $('sub').textContent=t('subtitle',BANK.length);$('rng').textContent=t('range',BANK.length)}
+$('goFull').onclick=()=>begin(BANK.slice(),'full');
 $('goRand').onclick=()=>{const n=parseInt($('cnt').value,10);
- if(!Number.isInteger(n)||n<1||n>BANK.length){$('err').textContent='Enter a whole number from 1 to '+BANK.length+'.';return}
- $('err').textContent='';begin(shuffle(BANK).slice(0,n),'Random test')};
-/* ans[i] holds the original option key (A-D); the displayed letter is the position in x.ord */
+ if(!Number.isInteger(n)||n<1||n>BANK.length){$('err').textContent=t('errCount',BANK.length);return}
+ $('err').textContent='';begin(shuffle(BANK).slice(0,n),'random')};
+
+/* ---------- Quiz ---------- */
+/* ans[i] = original option index (0-3); the displayed letter is its position in x.ord */
+function begin(list,name){set=list.map(x=>({...x,ord:shuffle([0,1,2,3])}));ans=new Array(set.length).fill(null);i=0;label=name;instant=$('instant').checked;show('quiz');
+ $('dots').innerHTML='';set.forEach((_,k)=>{const d=document.createElement('button');d.className='dot';d.textContent=k+1;d.onclick=()=>{i=k;render()};$('dots').appendChild(d)});render();window.scrollTo(0,0)}
 function render(){const x=set[i],a=ans[i],locked=instant&&a!==null;
- $('mode').textContent=label;$('pos').textContent='Question '+(i+1)+' / '+set.length;
+ $('mode').textContent=t('mode_'+label);$('pos').textContent=t('pos',i+1,set.length);
  $('pb').style.width=(ans.filter(v=>v!==null).length/set.length*100)+'%';
  $('qt').innerHTML=fmt(x.q);
- $('opts').innerHTML=x.ord.map((k,p)=>{let c='o';if(locked){if(k===x.a)c+=' ok';else if(k===a)c+=' no'}else if(k===a)c+=' sel';
-  return `<button class="${c}" data-k="${k}" ${locked?'disabled':''}><b>${L[p]})</b><span>${fmt(x.o[k])}</span></button>`}).join('');
- $('opts').querySelectorAll('.o').forEach(b=>b.onclick=()=>{ans[i]=b.dataset.k;render()});
- $('prev').disabled=i===0;$('next').textContent=i===set.length-1?'Finish':'Next';
- $('dots').querySelectorAll('.dot').forEach((d,k)=>{d.className='dot'+(ans[k]===null?'':instant?(ans[k]===set[k].a?' ok':' no'):' a')+(k===i?' c':'')});}
+ $('opts').innerHTML=x.ord.map((k,p)=>{let c='o';if(locked){if(x.c.includes(k))c+=' ok';else if(k===a)c+=' no'}else if(k===a)c+=' sel';
+  return `<button class="${c}" data-k="${k}" ${locked?'disabled':''}><b>${LET[p]})</b><span>${fmt(x.o[k])}</span></button>`}).join('');
+ $('opts').querySelectorAll('.o').forEach(b=>b.onclick=()=>{ans[i]=+b.dataset.k;render()});
+ $('finishHere').disabled=ans.every(v=>v===null);$('prev').disabled=i===0;$('next').textContent=t(i===set.length-1?'finish':'next');
+ $('dots').querySelectorAll('.dot').forEach((d,k)=>{d.className='dot'+(ans[k]===null?'':instant?(isOk(set[k],ans[k])?' ok':' no'):' a')+(k===i?' c':'')})}
 function goNext(){if(i<set.length-1){i++;render();return}
  const left=ans.filter(v=>v===null).length;
- if(left&&!confirm(left+' question(s) unanswered. Finish anyway?'))return;finish()}
+ if(left&&!confirm(t('unans',left)))return;finish()}
 $('prev').onclick=()=>{if(i>0){i--;render()}};
 $('next').onclick=goNext;
-$('quit').onclick=()=>{if(confirm('Quit this test? Progress will be lost.'))show('start')};
-function finish(){let c=0,w=0,s=0;ans.forEach((a,k)=>{if(a===null)s++;else if(a===set[k].a)c++;else w++});
- const p=Math.round(c/set.length*100);
+$('finishHere').onclick=finishHere;
+$('quit').onclick=()=>{if(confirm(t('quitQ')))show('start')};
+
+/* ---------- Result ---------- */
+function resultText(){if(!lastRes)return;const{c,w,s,p,n,saved,partial,of}=lastRes;
  $('pct').textContent=p+'%';$('nc').textContent=c;$('nw').textContent=w;$('ns').textContent=s;
- $('msg').textContent=c+' out of '+set.length+' — '+(p>=86?'Excellent!':p>=71?'Good job!':p>=56?'Not bad, keep practising.':'Keep practising — you can do it!');
- const pr=me();$('saved').textContent='';
- if(pr){pr.history.push({t:Date.now(),mode:label,total:set.length,c,w,s,p});saveDB();$('saved').textContent='Result saved to your profile history.'}
- $('retryW').hidden=(w+s)===0;filter='all';review();show('result');window.scrollTo(0,0)}
-function review(){$('review').innerHTML=set.map((x,k)=>{const a=ans[k],ok=a===x.a;if(filter==='w'&&ok)return'';if(filter==='c'&&!ok)return'';
+ $('msg').textContent=t('outOf',c,n)+' · '+t(p>=86?'p1':p>=71?'p2':p>=56?'p3':'p4');
+ $('saved').textContent=saved?t('saved'):'';$('partial').textContent=partial?t('partialNote',n,of):'';$('retryW').hidden=(w+s)===0}
+let resN=0;
+function finish(limit){const n=limit||set.length;let c=0,w=0,s=0;
+ for(let k=0;k<n;k++){const a=ans[k];if(a===null)s++;else if(isOk(set[k],a))c++;else w++}
+ const p=Math.round(c/n*100),pr=me(),partial=n<set.length;let saved=false;
+ if(pr){const rec={t:Date.now(),mode:label,total:n,c,w,s,p};if(partial){rec.partial=true;rec.of=set.length}pr.history.push(rec);saveDB();saved=true}
+ resN=n;lastRes={c,w,s,p,n,of:set.length,partial,saved};resultText();filter='all';review();show('result');window.scrollTo(0,0)}
+function finishHere(){let last=-1;ans.forEach((a,k)=>{if(a!==null)last=k});
+ if(last<0){alert(t('fhNone'));return}
+ const n=last+1;if(!confirm(t('fhQ',n,set.length)))return;finish(n>=set.length?0:n)}
+function uniq(a){return a.filter((v,k)=>a.indexOf(v)===k)}
+function review(){$('review').innerHTML=set.slice(0,resN).map((x,k)=>{const a=ans[k],ok=isOk(x,a);if(filter==='w'&&ok)return'';if(filter==='c'&&!ok)return'';
+ const corr=uniq(x.c.map(j=>x.o[j]));
  return `<div class="rv ${ok?'c':'w'}"><p>${k+1}. ${fmt(x.q)}</p>
- <div>Your answer: <b class="${ok?'g':'r'}">${a?esc(x.o[a]):'Skipped'}</b></div>
- ${ok?'':`<div>Correct answer: <b class="g">${esc(x.o[x.a])}</b></div>`}</div>`}).join('')||'<div class="empty">Nothing to show here.</div>'}
+ <div>${t('yourAns')}: <b class="${ok?'g':'r'}">${a!==null?fmt(x.o[a]):t('skip')}</b></div>
+ ${ok?'':`<div>${t(corr.length>1?'corrAnsP':'corrAns')}: <b class="g">${corr.map(fmt).join(' / ')}</b></div>`}</div>`}).join('')||`<div class="empty">${t('nothing')}</div>`}
 document.querySelectorAll('.tabs .chip').forEach(b=>b.onclick=()=>{filter=b.dataset.f;review()});
 $('again').onclick=()=>show('start');
-$('retryW').onclick=()=>{begin(set.filter((x,k)=>ans[k]!==x.a),'Retry mistakes')};
+$('retryW').onclick=()=>begin(set.filter((x,k)=>k<resN&&!isOk(x,ans[k])),'retry');
 
-/* Keyboard */
+/* ---------- Keyboard ---------- */
 document.addEventListener('keydown',e=>{
  if(cur!=='quiz'||e.ctrlKey||e.metaKey||e.altKey)return;
- const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'))return;
+ const tg=e.target;if(tg&&(tg.tagName==='INPUT'||tg.tagName==='TEXTAREA'))return;
  const k=e.key;
  if(k==='ArrowRight'){e.preventDefault();if(i<set.length-1){i++;render()}}
  else if(k==='ArrowLeft'){e.preventDefault();if(i>0){i--;render()}}
@@ -236,7 +422,7 @@ document.addEventListener('keydown',e=>{
  else if(k==='Enter'&&i===set.length-1){e.preventDefault();if(document.activeElement)document.activeElement.blur();goNext()}
 });
 
-/* Profiles and progress (localStorage) */
+/* ---------- Profiles (localStorage) ---------- */
 let DB={profiles:[],active:null};
 try{const r=JSON.parse(store.get('fe-db')||'null');if(r&&Array.isArray(r.profiles))DB=r}catch(e){}
 DB.profiles.forEach(p=>{if(!Array.isArray(p.history))p.history=[]});
@@ -245,18 +431,17 @@ const me=()=>DB.profiles.find(p=>p.id===DB.active)||null;
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const ICON_TRASH='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg>';
 const ICON_USER='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>';
-let setupEdit=null,setupFirst=false,beforeProfile='start';
+let setupEdit=null,setupFirst=false;
 function updateWho(){const p=me();$('who').innerHTML=p?ICON_USER+'<span>'+esc(p.name)+' · '+esc(p.group)+'</span>':''}
+function setupTexts(){$('setupTitle').textContent=t(setupEdit?'editT':(setupFirst?'welcome':'newT'));$('setupSub').textContent=setupFirst?t('setupSub'):''}
 function openSetup(editId){setupEdit=editId;setupFirst=DB.profiles.length===0;
  const p=editId?DB.profiles.find(x=>x.id===editId):null;
- $('setupTitle').textContent=p?'Edit profile':(setupFirst?'Welcome':'New profile');
- $('setupSub').textContent=setupFirst?'Enter your details once. Your results will be saved on this device.':'';
  $('pName').value=p?p.name:'';$('pGroup').value=p?p.group:'';$('pErr').textContent='';
- $('pCancel').hidden=setupFirst&&!DB.profiles.length;
- show('setup');$('pName').focus()}
+ $('pCancel').hidden=!DB.profiles.length;
+ show('setup');setupTexts();$('pName').focus()}
 function saveSetup(){const n=$('pName').value.trim().replace(/\s+/g,' '),g=$('pGroup').value.trim();
- if(n.length<2){$('pErr').textContent='Enter your full name.';return}
- if(!g){$('pErr').textContent='Enter your academic group.';return}
+ if(n.length<2){$('pErr').textContent=t('eName');return}
+ if(!g){$('pErr').textContent=t('eGroup');return}
  if(setupEdit){const p=DB.profiles.find(x=>x.id===setupEdit);p.name=n;p.group=g}
  else{const p={id:uid(),name:n,group:g,history:[]};DB.profiles.push(p);DB.active=p.id}
  saveDB();show(setupFirst?'start':'profile')}
@@ -266,51 +451,135 @@ $('pCancel').onclick=()=>show(me()?'profile':'start');
 $('bProfile').onclick=()=>{if(cur==='profile'){show(beforeProfile);return}beforeProfile=cur;show('profile')};
 $('pEdit').onclick=()=>openSetup(DB.active);
 $('pNew').onclick=()=>openSetup(null);
-function fmtDate(t){const d=new Date(t),z=n=>String(n).padStart(2,'0');return z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear()+' '+z(d.getHours())+':'+z(d.getMinutes())}
+function fmtDate(ts){const d=new Date(ts),z=n=>String(n).padStart(2,'0');return z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear()+' '+z(d.getHours())+':'+z(d.getMinutes())}
+function modeName(m){return I18N.en['mode_'+m]?t('mode_'+m):m}
 function renderProfile(){const p=me();if(!p)return;
  const ini=p.name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
- $('pAv').textContent=ini;$('pTitle').textContent=p.name;$('pGrp').textContent='Group: '+p.group;
+ $('pAv').textContent=ini;$('pTitle').textContent=p.name;$('pGrp').textContent=t('group',p.group);
  const H=p.history,n=H.length;
  $('kA').textContent=n;$('kAvg').textContent=n?Math.round(H.reduce((a,r)=>a+r.p,0)/n)+'%':'-';$('kBest').textContent=n?Math.max(...H.map(r=>r.p))+'%':'-';
  $('hClear').hidden=!n;
- $('hist').innerHTML=n?'<div class="sc"><table><thead><tr><th>Date</th><th>Mode</th><th>Total</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Score</th></tr></thead><tbody>'+
-  H.slice().reverse().map(r=>`<tr><td>${fmtDate(r.t)}</td><td>${esc(r.mode)}</td><td>${r.total}</td><td>${r.c}</td><td>${r.w}</td><td>${r.s}</td><td><span class="pill ${r.p>=71?'ok':r.p>=56?'mid':'no'}">${r.p}%</span></td></tr>`).join('')+'</tbody></table></div>'
-  :'<div class="card empty">No completed tests yet.</div>';
- $('plist').innerHTML=DB.profiles.map(q=>`<div class="prow"><div><b>${esc(q.name)}</b><span class="mu">${esc(q.group)} · ${q.history.length} attempt${q.history.length===1?'':'s'}</span></div>
-  ${q.id===DB.active?'<span class="tag">Active</span>':`<button class="btn sec sm" data-act="sw" data-id="${q.id}">Switch</button>`}
-  <button class="ib" style="width:36px;height:36px" data-act="del" data-id="${q.id}" aria-label="Delete profile">${ICON_TRASH}</button></div>`).join('')}
+ $('hist').innerHTML=n?'<div class="sc"><table><thead><tr>'+['hDate','hMode','hTotal','hCorrect','hWrong','hSkipped','hScore'].map(k=>'<th>'+t(k)+'</th>').join('')+'</tr></thead><tbody>'+
+  H.slice().reverse().map(r=>`<tr><td>${fmtDate(r.t)}</td><td>${esc(modeName(r.mode))}${r.partial?' · '+t('partialTag'):''}</td><td>${r.partial?r.total+' / '+r.of:r.total}</td><td>${r.c}</td><td>${r.w}</td><td>${r.s}</td><td><span class="pill ${r.p>=71?'ok':r.p>=56?'mid':'no'}">${r.p}%</span></td></tr>`).join('')+'</tbody></table></div>'
+  :`<div class="card empty">${t('noTests')}</div>`;
+ $('plist').innerHTML=DB.profiles.map(q=>`<div class="prow"><div><b>${esc(q.name)}</b><span class="mu">${esc(q.group)} · ${plAttempts(q.history.length)}</span></div>
+  ${q.id===DB.active?`<span class="tag">${t('active')}</span>`:`<button class="btn sec sm" data-act="sw" data-id="${q.id}">${t('sw')}</button>`}
+  <button class="ib" style="width:36px;height:36px" data-act="del" data-id="${q.id}" aria-label="${t('aDel')}">${ICON_TRASH}</button></div>`).join('')}
 $('plist').onclick=e=>{const b=e.target.closest('button[data-act]');if(!b)return;const id=b.dataset.id;
  if(b.dataset.act==='sw'){DB.active=id;saveDB();renderProfile()}
- else{const q=DB.profiles.find(x=>x.id===id);if(!confirm('Delete profile "'+q.name+'" and all of its history?'))return;
+ else{const q=DB.profiles.find(x=>x.id===id);if(!confirm(t('delQ',q.name)))return;
   DB.profiles=DB.profiles.filter(x=>x.id!==id);if(DB.active===id)DB.active=DB.profiles.length?DB.profiles[0].id:null;saveDB();
   if(!DB.profiles.length){openSetup(null)}else renderProfile()}};
-$('hClear').onclick=()=>{if(confirm('Clear all test history for this profile?')){me().history=[];saveDB();renderProfile()}};
+$('hClear').onclick=()=>{if(confirm(t('clearQ'))){me().history=[];saveDB();renderProfile()}};
 
-/* Global search */
-const norm=s=>s.toLowerCase().replace(/[\u2018\u2019\u02bb\u02bc\u02b9`\u00b4]/g,"'");
-function hl(text,terms){if(!terms.length)return esc(text);const n=norm(text),r=[];
- terms.forEach(t=>{let p=0;while((p=n.indexOf(t,p))>-1){r.push([p,p+t.length]);p+=t.length}});
- if(!r.length)return esc(text);r.sort((a,b)=>a[0]-b[0]);const m=[r[0].slice()];
+/* ---------- Global search ---------- */
+const norm=s=>s.toLowerCase().replace(/ё/g,'е').replace(/[\u2018\u2019\u02bb\u02bc\u02b9`\u00b4]/g,"'");
+function hl(text,terms){text=plain(text);if(!terms.length)return fmt(text);const n=norm(text),r=[];
+ terms.forEach(tm=>{let p=0;while((p=n.indexOf(tm,p))>-1){r.push([p,p+tm.length]);p+=tm.length}});
+ if(!r.length)return fmt(text);r.sort((a,b)=>a[0]-b[0]);const m=[r[0].slice()];
  for(const q of r.slice(1)){const l=m[m.length-1];if(q[0]<=l[1])l[1]=Math.max(l[1],q[1]);else m.push(q.slice())}
  let o='',p=0;m.forEach(([s,e])=>{o+=esc(text.slice(p,s))+'<mark>'+esc(text.slice(s,e))+'</mark>';p=e});return o+esc(text.slice(p))}
 $('bSearch').onclick=()=>{if(cur==='search'){show(beforeSearch);return}beforeSearch=cur;show('search');$('sq').focus();runSearch()};
-let tm;$('sq').addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(runSearch,120)});
+let tmr;$('sq').addEventListener('input',()=>{clearTimeout(tmr);tmr=setTimeout(runSearch,120)});
 function runSearch(){const raw=$('sq').value.trim();
  if(!raw){$('sinfo').textContent='';$('slist').innerHTML='';return}
  const terms=norm(raw).split(/\s+/).filter(Boolean),found=[];
- BANK.forEach(x=>{const f=[['q',norm(x.q)],...L.map(k=>[k,norm(x.o[k])])];
+ BANK.forEach(x=>{const f=[['q',norm(plain(x.q))],...x.o.map((o,k)=>[k,norm(plain(o))])];
   const all=f.map(v=>v[1]).join(' | ');
   const num=terms.length===1&&/^\d+$/.test(terms[0])&&+terms[0]===x.n;
-  if(!num&&!terms.every(t=>all.includes(t)))return;
-  const hits=new Set(),where=[];f.forEach(([k,s])=>{if(terms.some(t=>s.includes(t)))hits.add(k)});
-  if(num)where.push('Number');if(hits.has('q'))where.push('Question');L.forEach(k=>{if(hits.has(k))where.push('Option '+k)});
+  if(!num&&!terms.every(tm=>all.includes(tm)))return;
+  const hits=new Set(),where=[];f.forEach(([k,s])=>{if(terms.some(tm=>s.includes(tm)))hits.add(k)});
+  if(num)where.push(t('tNum'));if(hits.has('q'))where.push(t('tQ'));[0,1,2,3].forEach(k=>{if(hits.has(k))where.push(t('tOpt',LET[k]))});
   found.push({x,hits,where})});
- $('sinfo').textContent=found.length?found.length+' result'+(found.length>1?'s':''):'No results';
+ $('sinfo').textContent=found.length?t('sRes',found.length):t('sNone');
  $('slist').innerHTML=found.length?found.map(({x,hits,where})=>`<div class="card" style="margin-bottom:10px;padding:14px 16px">
-  <div class="q" style="font-size:1.05rem">${x.n}. ${hl(x.q,terms).replace(/___/g,'<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</div>
-  ${L.map(k=>`<div class="so${k===x.a?' ok':''}${hits.has(k)?' hit':''}"><b>${k})</b> ${hl(x.o[k],terms)}</div>`).join('')}
-  <div class="mu" style="margin-top:10px">${where.map(w=>'<span class="tag">'+w+'</span>').join('')}</div></div>`).join(''):'<div class="empty">Nothing found. Try a shorter word.</div>'}
+  <div class="q" style="font-size:1.05rem">${x.n}. ${hl(x.q,terms)}</div>
+  ${x.o.map((o,k)=>`<div class="so${x.c.includes(k)?' ok':''}${hits.has(k)?' hit':''}"><b>${LET[k]})</b> ${hl(o,terms)}</div>`).join('')}
+  <div class="mu" style="margin-top:10px">${where.map(w=>'<span class="tag">'+w+'</span>').join('')}</div></div>`).join(''):`<div class="empty">${t('sEmpty')}</div>`}
 
+/* ---------- Admin panel ---------- */
+const plain=s=>s.replace(/<\/?u>/g,'');
+let admUnlocked=false,admFilter='all',admEdit=-1,admFlags=[];
+try{admFlags=JSON.parse(store.get('fe-flags')||'[]')}catch(e){}
+const saveFlags=()=>store.set('fe-flags',JSON.stringify(admFlags));
+const BMARK='<svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg>';
+let tapN=0,tapT=0;
+$('title1').addEventListener('click',()=>{const now=Date.now();tapN=now-tapT<1500?tapN+1:1;tapT=now;if(tapN>=5){tapN=0;if(cur==='start')show('admin')}});
+function leaveAdmin(){admUnlocked=false;try{if(location.hash==='#admin')history.replaceState(null,'',location.pathname+location.search)}catch(e){}show('start')}
+$('aExit').onclick=leaveAdmin;$('gExit').onclick=leaveAdmin;
+const pinHash=s=>sig('pin:'+s);
+function tryPin(){if(pinHash($('gIn').value)===store.get('fe-pin')){admUnlocked=true;$('gIn').value='';renderAdmin()}else $('gErr').textContent=t('pinWrong')}
+$('gGo').onclick=tryPin;$('gIn').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();tryPin()}});
+$('pinSet').onclick=()=>{const v=$('pinIn').value;if(v.length<4){$('aMsg').textContent=t('pinShort');return}store.set('fe-pin',pinHash(v));$('pinIn').value='';admUnlocked=true;renderAdmin();$('aMsg').textContent=t('pinSaved')};
+$('pinOff').onclick=()=>{store.set('fe-pin','');renderAdmin();$('aMsg').textContent=t('pinRemoved')};
+function modState(x){const b=BASE.get(x.id);if(!b)return'new';return(b.q===x.q&&b.o.join('\u0001')===x.o.join('\u0001')&&b.c.join()===x.c.join())?'':'mod'}
+function renderAdmin(){const pin=store.get('fe-pin'),gated=!!pin&&!admUnlocked;
+ $('aGate').hidden=!gated;$('aPanel').hidden=gated;if(gated){$('gErr').textContent='';return}
+ const mod=BANK.filter(x=>modState(x)==='mod').length,nw=BANK.filter(x=>modState(x)==='new').length;
+ const present=new Set(BANK.map(x=>x.id)),del=ORIG.filter(o=>!present.has(o.id)).length;
+ $('aSum').textContent=t('admSub',BANK.length,mod,nw,del);$('pinOff').hidden=!pin;
+ document.querySelectorAll('[data-af]').forEach(b=>b.classList.toggle('on',b.dataset.af===admFilter));
+ renderAList();renderStats()}
+document.querySelectorAll('[data-af]').forEach(b=>b.onclick=()=>{admFilter=b.dataset.af;renderAdmin()});
+let atm;$('aSq').addEventListener('input',()=>{clearTimeout(atm);atm=setTimeout(renderAList,120)});
+function renderAList(){const raw=$('aSq').value.trim(),terms=raw?norm(plain(raw)).split(/\s+/).filter(Boolean):[];const out=[];
+ BANK.forEach((x,k)=>{const st=modState(x),fl=admFlags.includes(x.id);
+  if(admFilter==='mod'&&!st)return;if(admFilter==='flag'&&!fl)return;
+  if(terms.length){const all=norm(plain(x.q+' | '+x.o.join(' | ')));if(!terms.every(tm=>all.includes(tm))&&!(terms.length===1&&terms[0]===String(x.n)))return}
+  out.push(`<div class="arow" data-k="${k}"><span class="num">${x.n}</span><div class="at"><div class="aq">${esc(plain(x.q))}</div>
+  <div class="mu">${t('ansLbl',x.c.map(j=>LET[j]).join(', '))}${st==='mod'?' <span class="tag mod">'+t('tagMod')+'</span>':st==='new'?' <span class="tag nw">'+t('tagNew')+'</span>':''}</div></div>
+  <button class="ib fl${fl?' on':''}" data-flag="${k}" aria-label="${t('aFlag')}">${BMARK}</button></div>`)});
+ $('aList').innerHTML=out.join('')||`<div class="empty">${t('sNone')}</div>`}
+$('aList').onclick=e=>{const f=e.target.closest('[data-flag]');
+ if(f){const x=BANK[+f.dataset.flag];const p=admFlags.indexOf(x.id);if(p<0)admFlags.push(x.id);else admFlags.splice(p,1);saveFlags();renderAdmin();return}
+ const r=e.target.closest('.arow');if(r)openEditor(+r.dataset.k)};
+function editTexts(){$('eTitle').textContent=admEdit<0?t('newQ'):t('editQ',BANK[admEdit].n);for(let j=0;j<4;j++)$('eL'+j).textContent=t('lblOpt',LET[j])}
+function openEditor(k){admEdit=k;const x=k<0?{id:null,q:'',o:['','','',''],c:[]}:BANK[k];
+ $('eQ').value=x.q;for(let j=0;j<4;j++){$('eO'+j).value=x.o[j];$('eC'+j).checked=x.c.includes(j)}
+ $('eErr').textContent='';$('eDel').hidden=k<0;$('eFlag').hidden=k<0;$('eSaveNext').hidden=k<0;
+ $('eReset').hidden=k<0||!BASE.has(x.id)||!modState(x);
+ $('eFlag').classList.toggle('on',k>=0&&admFlags.includes(x.id));
+ show('aedit');editTexts();window.scrollTo(0,0)}
+function flash(msg){$('aMsg').textContent=msg}
+function saveEditor(next){const q=$('eQ').value.trim(),o=[0,1,2,3].map(j=>$('eO'+j).value.trim()),c=[0,1,2,3].filter(j=>$('eC'+j).checked);
+ if(!q){$('eErr').textContent=t('errQ');return}if(o.some(v=>!v)){$('eErr').textContent=t('errOpt');return}if(!c.length){$('eErr').textContent=t('errCorr');return}
+ let k=admEdit,added=false;
+ if(k<0){BANK.push({id:'u'+uid(),n:0,q,o,c});k=BANK.length-1;added=true}else Object.assign(BANK[k],{q,o,c});
+ renum();saveBank();buildStart();
+ if(next&&!added&&k<BANK.length-1){openEditor(k+1);return}
+ show('admin');flash(t(added?'aAdded':'aSaved'))}
+$('eSave').onclick=()=>saveEditor(false);$('eSaveNext').onclick=()=>saveEditor(true);
+$('eBack').onclick=()=>{show('admin');flash('')};
+$('eFlag').onclick=()=>{if(admEdit<0)return;const id=BANK[admEdit].id,p=admFlags.indexOf(id);if(p<0)admFlags.push(id);else admFlags.splice(p,1);saveFlags();$('eFlag').classList.toggle('on',p<0)};
+$('eReset').onclick=()=>{const x=BANK[admEdit],b=BASE.get(x.id);Object.assign(x,{q:b.q,o:b.o.slice(),c:b.c.slice()});saveBank();show('admin');flash(t('aRestored'))};
+$('eDel').onclick=()=>{if(!confirm(t('delQ2',BANK[admEdit].n)))return;BANK.splice(admEdit,1);renum();saveBank();buildStart();show('admin');flash(t('aDeleted'))};
+function renderStats(){const P=DB.profiles;let att=0,sum=0;P.forEach(p=>p.history.forEach(r=>{att++;sum+=r.p}));
+ $('stSum').textContent=att?t('stSummary',P.length,att,Math.round(sum/att)):t('stNone');
+ $('stTable').innerHTML=att?'<div class="sc"><table><thead><tr>'+['stName','stGroup','stAtt','stAvg','stBest','stLast'].map(k=>'<th>'+t(k)+'</th>').join('')+'</tr></thead><tbody>'+
+  P.filter(p=>p.history.length).map(p=>{const H=p.history,avg=Math.round(H.reduce((a,r)=>a+r.p,0)/H.length),best=Math.max(...H.map(r=>r.p)),last=H[H.length-1];
+   return `<tr><td>${esc(p.name)}</td><td>${esc(p.group)}</td><td>${H.length}</td><td>${avg}%</td><td>${best}%</td><td>${fmtDate(last.t)}</td></tr>`}).join('')+'</tbody></table></div>':''}
+$('stExp').onclick=()=>download('statistics.json',JSON.stringify(DB.profiles.map(({name,group,history})=>({name,group,history})),null,1),'application/json');
+$('aAdd').onclick=()=>openEditor(-1);
+function download(name,text,type){const b=new Blob([text],{type});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800)}
+function buildSite(){const json=JSON.stringify(BANK.map(({n,q,o,c})=>({n,q,o,c}))).replace(/</g,'\\u003c');
+ return PRISTINE.replace(/(<script id="bankData" type="application\/json">)[\s\S]*?(<\/script>)/,(m,a,b)=>a+json+b).replace(/(<html[^>]*?)data-theme="[^"]*"/,'$1data-theme="light"')}
+$('aSite').onclick=()=>download('index.html',buildSite(),'text/html');
+$('aExp').onclick=()=>download('questions.json',JSON.stringify(BANK.map(({id,q,o,c})=>({id,q,o,c})),null,1),'application/json');
+$('aImp').onclick=()=>$('aFile').click();
+$('aFile').addEventListener('change',()=>{const f=$('aFile').files&&$('aFile').files[0];if(!f)return;const rd=new FileReader();
+ rd.onload=()=>{try{const a=JSON.parse(rd.result);if(!Array.isArray(a)||!a.length)throw 0;const seen=new Set();
+  const nb=a.map((x,k)=>{if(!x||typeof x.q!=='string'||!x.q.trim()||!Array.isArray(x.o)||x.o.length!==4||x.o.some(v=>typeof v!=='string'||!v.trim()))throw 0;
+   let c=(Array.isArray(x.c)?x.c:[x.c]).map(Number).filter(j=>j>=0&&j<4);c=[...new Set(c)].sort();if(!c.length)throw 0;
+   let id=x.id!=null?String(x.id):'u'+uid();if(seen.has(id))id='u'+uid();seen.add(id);
+   return{id,n:k+1,q:x.q.trim(),o:x.o.map(v=>v.trim()),c}});
+  if(!confirm(t('impQ',nb.length)))return;BANK=nb;saveBank();buildStart();renderAdmin();flash(t('aImported',nb.length))}catch(e){flash(t('impErr'))}
+  $('aFile').value=''};rd.readAsText(f)});
+$('aRst').onclick=()=>{if(!confirm(t('resetAllQ')))return;store.set('fe-bank','');loadBank();buildStart();renderAdmin();flash(t('aRestored'))};
+window.addEventListener('hashchange',()=>{if(location.hash==='#admin'&&cur==='start')show('admin')});
+
+/* ---------- Init ---------- */
 if(!me()&&DB.profiles.length)DB.active=DB.profiles[0].id;
-if(me())show("start");else openSetup(null);
+if(me())show('start');else openSetup(null);
+applyLang();
+if(location.hash==='#admin'&&cur==='start')show('admin');
 </script></body></html>
